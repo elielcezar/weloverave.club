@@ -52,7 +52,13 @@ const smallPosts = [
   }
 ]
 
-const Sidebar = () => {
+const Sidebar = ({ posts = [] }) => {
+  // Derive trending posts (e.g., first 3)
+  const trendingPosts = posts.slice(0, 3);
+
+  // Derive small posts (e.g., next 4)
+  const smallPosts = posts.slice(3, 7);
+
   return (
     <div className="sidebar">
       {/* Featured Posts Widget */}
@@ -64,18 +70,18 @@ const Sidebar = () => {
               {index === 0 && (
                 <>
                   <div className="trending-post__image-large">
-                    <img src={post.image} alt={post.title} />
+                    <img src={post.image || 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80'} alt={post.title || 'Post'} />
                   </div>
-                  <h4 className="trending-post__title-large">{post.title}</h4>
-                  <span className="trending-post__date">{post.date}</span>
+                  <h4 className="trending-post__title-large">{post.title || 'Sem título'}</h4>
+                  <span className="trending-post__date">{post.date || 'Data não disponível'}</span>
                 </>
               )}
               {index > 0 && (
                 <div className="trending-post__small">
-                  <img src={post.image} alt={post.title} className="trending-post__image-small" />
+                  <img src={post.image || 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80'} alt={post.title || 'Post'} className="trending-post__image-small" />
                   <div className="trending-post__content-small">
-                    <h4 className="trending-post__title-small">{post.title}</h4>
-                    <span className="trending-post__date">{post.date}</span>
+                    <h4 className="trending-post__title-small">{post.title || 'Sem título'}</h4>
+                    <span className="trending-post__date">{post.date || 'Data não disponível'}</span>
                   </div>
                 </div>
               )}
@@ -139,9 +145,9 @@ const Sidebar = () => {
         <div className="small-posts">
           {smallPosts.map(post => (
             <article key={post.id} className="small-post">
-              <span className="small-post__category">{post.category}</span>
-              <h4 className="small-post__title">{post.title}</h4>
-              <span className="small-post__date">{post.date}</span>
+              <span className="small-post__category">{post.category || 'Geral'}</span>
+              <h4 className="small-post__title">{post.title || 'Sem título'}</h4>
+              <span className="small-post__date">{post.date || 'Data não disponível'}</span>
             </article>
           ))}
         </div>
@@ -154,9 +160,9 @@ const Sidebar = () => {
           Receba as últimas notícias sobre música eletrônica direto no seu email.
         </p>
         <form className="newsletter-form">
-          <input 
-            type="email" 
-            placeholder="Seu email..." 
+          <input
+            type="email"
+            placeholder="Seu email..."
             className="newsletter-input"
           />
           <button type="submit" className="newsletter-btn">

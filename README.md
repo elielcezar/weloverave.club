@@ -1,6 +1,6 @@
 # EDM News - Portal de Notícias sobre Música Eletrônica
 
-Um site moderno e responsivo sobre música eletrônica, construído com React e Vite. Design inspirado no SmartMag GoodNews, adaptado para o universo EDM.
+Um site moderno e responsivo sobre música eletrônica, construído com **Next.js 15**. Design inspirado no SmartMag GoodNews, adaptado para o universo EDM.
 
 ## 🎵 Características
 
@@ -11,14 +11,14 @@ Um site moderno e responsivo sobre música eletrônica, construído com React e 
 - 📰 Cards de posts com imagens, categorias e metadados
 - 🔧 Sidebar com widgets (posts em destaque, redes sociais, newsletter)
 - 🌙 Header sticky com menu dropdown
-- ⚡ Performance otimizada com Vite
+- ⚡ Performance otimizada com Next.js e Server Components
 - 🎨 Animações e transições suaves
 
 ## 🚀 Como Iniciar
 
 ### Pré-requisitos
 
-- Node.js (versão 14 ou superior)
+- Node.js (versão 18 ou superior recomendada)
 - npm ou yarn
 
 ### Instalação
@@ -37,51 +37,36 @@ npm install
 npm run dev
 ```
 
-4. Abra o navegador em `http://localhost:5173`
+4. Abra o navegador em `http://localhost:3000`
 
 ## 📦 Scripts Disponíveis
 
 - `npm run dev` - Inicia o servidor de desenvolvimento
-- `npm run build` - Cria a versão de produção
-- `npm run preview` - Preview da versão de produção
+- `npm run build` - Cria a versão de produção otimizada
+- `npm start` - Inicia o servidor de produção
+- `npm run lint` - Executa a verificação de linting
 
 ## 🏗️ Estrutura do Projeto
 
 ```
 EDM News/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── Header/
-│   │   │   ├── Header.jsx
-│   │   │   ├── Header.css
-│   │   │   ├── TopBar.jsx
-│   │   │   └── TopBar.css
-│   │   ├── Hero/
-│   │   │   ├── HeroSection.jsx
-│   │   │   └── HeroSection.css
-│   │   ├── MainContent/
-│   │   │   ├── MainContent.jsx
-│   │   │   └── MainContent.css
-│   │   ├── PostCard/
-│   │   │   ├── PostCard.jsx
-│   │   │   └── PostCard.css
-│   │   ├── Sidebar/
-│   │   │   ├── Sidebar.jsx
-│   │   │   └── Sidebar.css
-│   │   ├── SectionTitle/
-│   │   │   ├── SectionTitle.jsx
-│   │   │   └── SectionTitle.css
-│   │   └── Footer/
-│   │       ├── Footer.jsx
-│   │       └── Footer.css
-│   ├── App.jsx
-│   ├── App.css
-│   ├── main.jsx
-│   └── index.css
-├── index.html
+├── app/                    # App Router (Páginas e Layouts)
+│   ├── posts/             # Rotas de posts
+│   ├── globals.css        # Estilos globais
+│   ├── layout.jsx         # Layout principal (Root Layout)
+│   └── page.jsx           # Página inicial
+├── components/             # Componentes Reutilizáveis
+│   ├── Footer/
+│   ├── Header/
+│   ├── Hero/
+│   ├── MainContent/
+│   ├── PostCard/
+│   ├── SectionTitle/
+│   └── Sidebar/
+├── data/                   # Dados mockados (JSON)
+├── public/                 # Arquivos estáticos
+├── services/               # Serviços de dados
 ├── package.json
-├── vite.config.js
 └── README.md
 ```
 
@@ -106,8 +91,8 @@ O site é totalmente responsivo com breakpoints em:
 
 ## 🔧 Tecnologias Utilizadas
 
+- **Next.js 15** - Framework React com App Router
 - **React 18** - Biblioteca JavaScript para interfaces
-- **Vite** - Build tool e dev server ultra-rápido
 - **React Icons** - Biblioteca de ícones
 - **CSS3** - Estilização com variáveis CSS e Flexbox/Grid
 
@@ -147,9 +132,9 @@ O site é totalmente responsivo com breakpoints em:
 
 ## 🎯 Próximos Passos
 
-- [ ] Integração com API backend
+- [ ] Integração com API backend real
 - [ ] Sistema de busca funcional
-- [ ] Paginação de posts
+- [ ] Paginação de posts via Server Actions
 - [ ] Sistema de comentários
 - [ ] Modo escuro/claro
 - [ ] Filtros por categoria
@@ -159,5 +144,4 @@ O site é totalmente responsivo com breakpoints em:
 
 Este projeto é um template educacional inspirado no SmartMag GoodNews.
 
-## 👨‍💻 Desenvolvido com ❤️ usando React + Vite
-
+## 👨‍💻 Desenvolvido com ❤️ usando Next.js

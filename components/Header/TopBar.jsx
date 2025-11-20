@@ -25,9 +25,18 @@ const TopBar = () => {
               </a>
             </div>
           </div>
+
+          <div className="topbar-center">
+            <a href="/" className="logo-section">
+              <div className="logo-main">GOOD<span className="logo-accent">NEWS</span></div>
+            </a>
+          </div>
+
           <div className="topbar-right">
-            <button className="topbar-btn btn-subscribe">Inscrever-se</button>
-            <button className="topbar-btn btn-login">Login</button>
+            <button className="topbar-btn btn-subscribe">SUBSCRIBE</button>
+            <button className="topbar-btn btn-login">
+              <span className="login-icon">👤</span> LOGIN
+            </button>
           </div>
         </div>
       </div>

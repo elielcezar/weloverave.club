@@ -23,14 +23,16 @@ const PostCard = ({ post }) => {
           
           <div className="post-card__meta">
             <span className="post-card__meta-item">
-              <FaUser /> By {post.author}
+              <FaUser /> By {post.author || 'Admin'}
             </span>
             <span className="post-card__meta-item">
-              <FaClock /> {post.date}
+              <FaClock /> {post.date || 'Data não disponível'}
             </span>
-            <span className="post-card__meta-item">
-              <FaComment /> {post.comments}
-            </span>
+            {post.comments !== undefined && (
+              <span className="post-card__meta-item">
+                <FaComment /> {post.comments}
+              </span>
+            )}
           </div>
           
           <p className="post-card__excerpt">{post.excerpt}</p>
