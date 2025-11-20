@@ -2,7 +2,7 @@ import HomePageContent from '@/components/HomePageContent/HomePageContent'
 
 export async function generateMetadata() {
   return {
-    title: 'EDM News - Electronic Music News',
+    title: 'WeLoveRave - Electronic Music News',
     description: 'Your definitive source for electronic music news, festivals, reviews and releases',
   }
 }

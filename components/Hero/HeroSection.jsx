@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import './HeroSection.css'
 
 const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false, lang = 'en' }) => {
@@ -71,7 +72,14 @@ const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false, 
             <Link href={`/${lang}/${slug}`} key={item.id}>
               <article className="hero-card">
                 <div className="hero-card__image">
-                  <img src={item.image} alt={item.title} />
+                  <Image 
+                    src={item.image} 
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    priority
+                    style={{ objectFit: 'cover' }}
+                  />
                   <div className="hero-card__overlay"></div>
                 </div>
                 <div className="hero-card__content">

@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaUser, FaClock, FaBookReader } from 'react-icons/fa'
 import './PostCard.css'
 
@@ -11,9 +12,12 @@ const PostCard = ({ post, lang = 'en' }) => {
     <Link href={`/${lang}/${slug}`}>
       <article className="post-card">
         <div className="post-card__image-wrapper">
-          <img 
+          <Image 
             src={post.image} 
             alt={post.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 350px"
+            style={{ objectFit: 'cover' }}
             className="post-card__image"
           />
           <span className={`post-card__category category-tag--${post.categoryColor}`}>

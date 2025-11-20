@@ -27,7 +27,7 @@ const Footer = () => {
                 {lang === 'es' && 'Sobre Nosotros'}
               </h3>
               <div className="footer-logo">
-                <div className="footer-logo-text">EDM NEWS</div>
+                <div className="footer-logo-text">We Love Rave</div>
               </div>
               <p className="footer-text">
                 {lang === 'pt' && 'Sua fonte definitiva para notícias sobre música eletrônica. Cobertura completa de festivais, lançamentos, entrevistas exclusivas com DJs e produtores.'}
@@ -35,7 +35,7 @@ const Footer = () => {
                 {lang === 'es' && 'Tu fuente definitiva de noticias sobre música electrónica. Cobertura completa de festivales, lanzamientos, entrevistas exclusivas con DJs y productores.'}
               </p>
               <p className="footer-text">
-                <strong>{lang === 'pt' ? 'Email:' : lang === 'en' ? 'Email:' : 'Correo:'}</strong> contato@edmnews.com<br />
+                <strong>{lang === 'pt' ? 'Email:' : lang === 'en' ? 'Email:' : 'Correo:'}</strong> contact@weloverave.club<br />
                 <strong>{lang === 'pt' ? 'Contato:' : lang === 'en' ? 'Contact:' : 'Contacto:'}</strong> +55 11 9999-9999
               </p>
             </div>
@@ -96,7 +96,7 @@ const Footer = () => {
         <div className="container-wide">
           <div className="footer-bottom-content">
             <div className="footer-copyright">
-              © 2024 EDM News. {t('footer.copyright')}.
+              © 2024 WeLoveRave. {t('footer.copyright')}.
             </div>
             <div className="footer-social">
               <a href="#" className="footer-social-link" aria-label="Facebook">

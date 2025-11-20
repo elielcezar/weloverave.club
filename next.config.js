@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cms-news-2025.s3.sa-east-1.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+      },
     ],
   },
   // Ensure we're using App Router only

@@ -15,12 +15,12 @@ export async function generateMetadata({ params }) {
   
   if (!supportedLanguages.includes(lang)) {
     return {
-      title: 'Language not supported | EDM News'
+      title: 'Language not supported | WeLoveRave'
     }
   }
 
   return {
-    title: `EDM News - Electronic Music News`,
+    title: `WeLoveRave - Electronic Music News`,
     description: 'Your definitive source for electronic music news, festivals, reviews and releases',
   }
 }

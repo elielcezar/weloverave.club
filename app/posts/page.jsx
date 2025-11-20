@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { fetchPosts, fetchCategorias } from '@/services/api'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
@@ -12,13 +13,13 @@ export async function generateMetadata({ searchParams }) {
 
   if (categoria) {
     return {
-      title: `${categoria.charAt(0).toUpperCase() + categoria.slice(1)} | EDM News`,
+      title: `${categoria.charAt(0).toUpperCase() + categoria.slice(1)} | WeLoveRave`,
       description: `Confira todas as notícias sobre ${categoria.toLowerCase()} no mundo da música eletrônica`,
     }
   }
 
   return {
-    title: 'Todas as Notícias | EDM News',
+    title: 'Todas as Notícias | WeLoveRave',
     description: 'Confira todas as notícias sobre música eletrônica, festivais, DJs e lançamentos',
   }
 }
@@ -97,7 +98,13 @@ export default async function PostsPage({ searchParams }) {
                   <Link href={`/posts/${post.slug || post.id}`} key={post.id}>
                     <article className="post-list-item">
                       <div className="post-list-item__image">
-                        <img src={post.image} alt={post.title} />
+                        <Image 
+                          src={post.image} 
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 350px"
+                          style={{ objectFit: 'cover' }}
+                        />
                         <span className={`post-list-item__category category-tag--${post.categoryColor}`}>
                           {post.category}
                         </span>

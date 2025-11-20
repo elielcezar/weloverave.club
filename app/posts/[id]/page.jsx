@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { fetchPostBySlug, fetchRelatedPosts } from '@/services/api'
 import { notFound } from 'next/navigation'
 import { FaUser, FaClock, FaComment, FaFacebookF, FaTwitter, FaLinkedin, FaWhatsapp } from 'react-icons/fa'
@@ -11,12 +12,12 @@ export async function generateMetadata({ params }) {
 
   if (!post) {
     return {
-      title: 'Post não encontrado | EDM News'
+      title: 'Post não encontrado | WeLoveRave'
     }
   }
 
   return {
-    title: `${post.title} | EDM News`,
+    title: `${post.title} | WeLoveRave`,
     description: post.excerpt,
   }
 }
@@ -50,8 +51,17 @@ export default async function PostPage({ params }) {
           
           {/* Main Content */}
           <article className="single-post__content">
-          
-            <img src={post.image} alt={post.title} className="single-post__image" />
+            <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+              <Image 
+                src={post.image} 
+                alt={post.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 800px"
+                priority
+                style={{ objectFit: 'cover' }}
+                className="single-post__image"
+              />
+            </div>
 
             {/* Post Header */}
             <header className="post-header">
@@ -63,10 +73,13 @@ export default async function PostPage({ params }) {
 
               <div className="post-meta">
                 <div className="post-author">
-                  <img
+                  <Image
                     src={post.authorImage}
                     alt={post.author}
+                    width={50}
+                    height={50}
                     className="post-author__image"
+                    style={{ objectFit: 'cover', borderRadius: '50%' }}
                   />
                   <div className="post-author__info">
                     <span className="post-author__name">Por {post.author}</span>
@@ -122,10 +135,13 @@ export default async function PostPage({ params }) {
 
             {/* Author Bio */}
             <div className="author-bio">
-              <img
+              <Image
                 src={post.authorImage}
                 alt={post.author}
+                width={80}
+                height={80}
                 className="author-bio__image"
+                style={{ objectFit: 'cover', borderRadius: '50%' }}
               />
               <div className="author-bio__content">
                 <h3 className="author-bio__name">{post.author}</h3>
@@ -148,10 +164,13 @@ export default async function PostPage({ params }) {
                   {relatedPosts.map(relatedPost => (
                     <Link href={`/posts/${relatedPost.slug || relatedPost.id}`} key={relatedPost.id}>
                       <article className="related-post">
-                        <img
+                        <Image
                           src={relatedPost.image}
                           alt={relatedPost.title}
+                          width={100}
+                          height={80}
                           className="related-post__image"
+                          style={{ objectFit: 'cover', borderRadius: '4px' }}
                         />
                         <div className="related-post__content">
                           <h4 className="related-post__title">{relatedPost.title}</h4>

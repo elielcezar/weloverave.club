@@ -4,7 +4,7 @@ import { getTranslation } from '@/utils/translations'
 export async function generateMetadata() {
   const t = (key) => getTranslation(key, 'pt')
   return {
-    title: 'EDM News - Notícias sobre Música Eletrônica',
+    title: 'WeLoveRave - Notícias sobre Música Eletrônica',
     description: 'Sua fonte definitiva para notícias sobre música eletrônica, festivais, reviews e lançamentos',
   }
 }
