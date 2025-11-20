@@ -4,14 +4,15 @@ import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FaFacebookF, FaTwitter, FaInstagram, FaPinterest } from 'react-icons/fa'
-import { getTranslation } from '@/utils/translations'
+import { getTranslation, getHomeUrl } from '@/utils/translations'
 import { supportedLanguages, defaultLanguage } from '@/utils/translations'
 import './Footer.css'
 
 const Footer = () => {
   const pathname = usePathname()
-  const pathLang = pathname?.split('/')[1]
-  const lang = supportedLanguages.includes(pathLang) ? pathLang : defaultLanguage
+  const pathSegments = pathname?.split('/').filter(Boolean)
+  const firstSegment = pathSegments[0]
+  const lang = supportedLanguages.includes(firstSegment) ? firstSegment : defaultLanguage
   const t = (key) => getTranslation(key, lang)
   return (
     <footer className="footer">
@@ -70,10 +71,10 @@ const Footer = () => {
                 {lang === 'pt' ? 'Categorias' : lang === 'en' ? 'Categories' : 'Categorías'}
               </h3>
               <ul className="footer-links">
-                <li><Link href={`/${lang}`}>{lang === 'pt' ? 'Todas' : lang === 'en' ? 'All' : 'Todas'}</Link></li>
-                <li><Link href={`/${lang}?categoria=festival`}>{lang === 'pt' ? 'Festivais' : lang === 'en' ? 'Festivals' : 'Festivales'}</Link></li>
-                <li><Link href={`/${lang}?categoria=music`}>{lang === 'pt' ? 'Música' : lang === 'en' ? 'Music' : 'Música'}</Link></li>
-                <li><Link href={`/${lang}`}>{lang === 'pt' ? 'Notícias' : lang === 'en' ? 'News' : 'Noticias'}</Link></li>
+                <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Todas' : lang === 'en' ? 'All' : 'Todas'}</Link></li>
+                <li><Link href={`${getHomeUrl(lang)}?categoria=festival`}>{lang === 'pt' ? 'Festivais' : lang === 'en' ? 'Festivals' : 'Festivales'}</Link></li>
+                <li><Link href={`${getHomeUrl(lang)}?categoria=music`}>{lang === 'pt' ? 'Música' : lang === 'en' ? 'Music' : 'Música'}</Link></li>
+                <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Notícias' : lang === 'en' ? 'News' : 'Noticias'}</Link></li>
               </ul>
             </div>
 
@@ -81,9 +82,9 @@ const Footer = () => {
             <div className="footer-widget">
               <h3 className="footer-widget-title">{t('footer.quickLinks')}</h3>
               <ul className="footer-links">
-                <li><Link href={`/${lang}`}>{t('menu.home')}</Link></li>
-                <li><Link href={`/${lang}`}>{t('menu.allNews')}</Link></li>
-                <li><Link href={`/${lang}`}>{lang === 'pt' ? 'Contato' : lang === 'en' ? 'Contact' : 'Contacto'}</Link></li>
+                <li><Link href={getHomeUrl(lang)}>{t('menu.home')}</Link></li>
+                <li><Link href={getHomeUrl(lang)}>{t('menu.allNews')}</Link></li>
+                <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Contato' : lang === 'en' ? 'Contact' : 'Contacto'}</Link></li>
               </ul>
             </div>
           </div>
@@ -112,8 +113,8 @@ const Footer = () => {
               </a>
             </div>
             <nav className="footer-nav">
-              <Link href={`/${lang}`}>{t('menu.home')}</Link>
-              <Link href={`/${lang}`}>{t('menu.allNews')}</Link>
+              <Link href={getHomeUrl(lang)}>{t('menu.home')}</Link>
+              <Link href={getHomeUrl(lang)}>{t('menu.allNews')}</Link>
             </nav>
           </div>
         </div>

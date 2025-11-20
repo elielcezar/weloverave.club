@@ -47,47 +47,50 @@ const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false, 
     heroPosts.push(...fallbackPosts);
   }
 
-  if (heroPosts.length === 0) return null;
+  // Only show hero-grid on home page (when there's no category filter)
+  const isHomePage = !categoria
+
+  if (!isHomePage && heroPosts.length === 0) return null;
+  if (isHomePage && heroPosts.length === 0) return null;
 
   return (
     <section className="hero-section">
       {showCategoryTitle && categoria && (
         <div className="hero-category-title">
           <div className="container-wide">
-            <h1 className="hero-category-heading">{categoria}</h1>
-            <p className="hero-category-subtitle">
-              Descubra tudo sobre {categoria.toLowerCase()} no mundo da música eletrônica
-            </p>
+            <h1 className="hero-category-heading">{categoria}</h1>           
           </div>
         </div>
       )}
-      <div className="hero-grid">
-        {heroPosts.map((item) => {
-          // Extract slug without language prefix
-          const slug = item.slug ? item.slug.replace(/^(pt|en|es)\//, '') : item.id
-          return (
-          <Link href={`/${lang}/${slug}`} key={item.id}>
-            <article className="hero-card">
-              <div className="hero-card__image">
-                <img src={item.image} alt={item.title} />
-                <div className="hero-card__overlay"></div>
-              </div>
-              <div className="hero-card__content">
-                <span className={`category-tag category-tag--${item.categoryColor || 'blue'}`}>
-                  {item.category || 'News'}
-                </span>              
-                <h2 className="hero-card__title">{item.title || 'Sem título'}</h2>
-                <div className="hero-card__meta">
-                  <span className="hero-card__author">{item.author || 'Admin'}</span>
-                  <span className="hero-card__separator">—</span>
-                  <span className="hero-card__date">{item.date || 'Data não disponível'}</span>
+      {isHomePage && (
+        <div className="hero-grid">
+          {heroPosts.map((item) => {
+            // Extract slug without language prefix
+            const slug = item.slug ? item.slug.replace(/^(pt|en|es)\//, '') : item.id
+            return (
+            <Link href={`/${lang}/${slug}`} key={item.id}>
+              <article className="hero-card">
+                <div className="hero-card__image">
+                  <img src={item.image} alt={item.title} />
+                  <div className="hero-card__overlay"></div>
                 </div>
-              </div>
-            </article>
-          </Link>
-          )
-        })}
-      </div>
+                <div className="hero-card__content">
+                  <span className={`category-tag category-tag--${item.categoryColor || 'blue'}`}>
+                    {item.category || 'News'}
+                  </span>              
+                  <h2 className="hero-card__title">{item.title || 'Sem título'}</h2>
+                  <div className="hero-card__meta">
+                    <span className="hero-card__author">{item.author || 'Admin'}</span>
+                    <span className="hero-card__separator">—</span>
+                    <span className="hero-card__date">{item.date || 'Data não disponível'}</span>
+                  </div>
+                </div>
+              </article>
+            </Link>
+            )
+          })}
+        </div>
+      )}
     </section>
   )
 }

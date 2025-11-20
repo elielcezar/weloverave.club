@@ -24,18 +24,23 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
       return initialLang
     }
     
+    // Try URL first
+    const pathSegments = pathname?.split('/').filter(Boolean)
+    const firstSegment = pathSegments[0]
+    
+    if (supportedLanguages.includes(firstSegment)) {
+      return firstSegment
+    } else if (pathname === '/' || !firstSegment) {
+      // Root path → English (default)
+      return defaultLanguage
+    }
+    
     if (typeof window !== 'undefined') {
-      // Try localStorage first on client
+      // Try localStorage as fallback
       const savedLang = localStorage.getItem('language')
       if (savedLang && supportedLanguages.includes(savedLang)) {
         return savedLang
       }
-    }
-    
-    // Try URL
-    const pathLang = pathname?.split('/')[1]
-    if (supportedLanguages.includes(pathLang)) {
-      return pathLang
     }
     
     return defaultLanguage
@@ -48,10 +53,19 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Try to get from URL first
-      const pathLang = pathname?.split('/')[1]
-      if (supportedLanguages.includes(pathLang) && pathLang !== language) {
-        setLanguage(pathLang)
-        localStorage.setItem('language', pathLang)
+      const pathSegments = pathname?.split('/').filter(Boolean)
+      const firstSegment = pathSegments[0]
+      
+      let detectedLang = defaultLanguage
+      if (supportedLanguages.includes(firstSegment)) {
+        detectedLang = firstSegment
+      } else if (pathname === '/' || !firstSegment) {
+        detectedLang = defaultLanguage
+      }
+      
+      if (detectedLang !== language) {
+        setLanguage(detectedLang)
+        localStorage.setItem('language', detectedLang)
         return
       }
 
@@ -81,7 +95,20 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
     }
 
     // Build new path with new language
-    const newPath = `/${newLang}${pathParts.length > 0 ? '/' + pathParts.join('/') : ''}`
+    // For English, use root path if it's home, otherwise use /en/ prefix
+    let newPath
+    if (newLang === 'en') {
+      // If it's home (no path parts), use root
+      if (pathParts.length === 0) {
+        newPath = '/'
+      } else {
+        // Otherwise use /en/ prefix for posts
+        newPath = `/${newLang}/${pathParts.join('/')}`
+      }
+    } else {
+      // For pt/es, always use prefix
+      newPath = `/${newLang}${pathParts.length > 0 ? '/' + pathParts.join('/') : ''}`
+    }
     
     router.push(newPath)
   }

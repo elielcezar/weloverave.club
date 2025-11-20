@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FaSearch, FaBars, FaTimes } from 'react-icons/fa'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { getTranslation } from '@/utils/translations'
+import { getTranslation, getHomeUrl } from '@/utils/translations'
 import LanguageSelector from '@/components/LanguageSelector/LanguageSelector'
 import './Header.css'
 
@@ -36,7 +36,7 @@ const Header = ({ categorias = [] }) => {
           <nav className={`main-nav ${isMenuOpen ? 'active' : ''}`}>
             <ul className="nav-list">
               <li className="nav-item">
-                <Link href={`/${language}`} className="nav-link active">
+                <Link href={getHomeUrl(language)} className="nav-link active">
                   {t('menu.home')}
                 </Link>
               </li>
@@ -44,7 +44,7 @@ const Header = ({ categorias = [] }) => {
                 categorias.map((categoria) => (
                   <li key={categoria.id} className="nav-item">
                     <Link 
-                      href={`/${language}?categoria=${categoria.slug}`} 
+                      href={`${getHomeUrl(language)}?categoria=${categoria.slug}`} 
                       className="nav-link"
                     >
                       {categoria.nome.toUpperCase()}
@@ -53,13 +53,13 @@ const Header = ({ categorias = [] }) => {
                 ))
               ) : (
                 <li className="nav-item">
-                  <Link href={`/${language}`} className="nav-link">
+                  <Link href={getHomeUrl(language)} className="nav-link">
                     {t('menu.news')}
                   </Link>
                 </li>
               )}
               <li className="nav-item">
-                <Link href={`/${language}`} className="nav-link">
+                <Link href={getHomeUrl(language)} className="nav-link">
                   {t('menu.allNews')}
                 </Link>
               </li>

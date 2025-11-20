@@ -40,3 +40,9 @@ export const getLanguageName = (lang) => {
 export const supportedLanguages = ['pt', 'en', 'es']
 export const defaultLanguage = 'en'
 
+// Helper function to get home URL based on language
+export const getHomeUrl = (lang) => {
+  if (lang === 'en') return '/'
+  return `/${lang}`
+}
+

@@ -6,7 +6,7 @@ import Sidebar from '@/components/Sidebar/Sidebar'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
 import { fetchPosts, fetchCategorias } from '@/services/api'
 import { supportedLanguages, defaultLanguage, getTranslation } from '@/utils/translations'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { FaClock, FaBookReader } from 'react-icons/fa'
 import '../posts/posts.css'
 
@@ -33,6 +33,12 @@ export default async function HomePage({ params, searchParams }) {
   }
 
   const resolvedSearchParams = await searchParams
+  
+  // Redirect /en to / (home without prefix)
+  if (lang === 'en') {
+    const queryString = resolvedSearchParams?.categoria ? `?categoria=${resolvedSearchParams.categoria}` : ''
+    redirect(`/${queryString}`)
+  }
   const categoriaSlug = resolvedSearchParams?.categoria
 
   const posts = await fetchPosts(lang)

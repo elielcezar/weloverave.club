@@ -8,14 +8,21 @@ export default function LanguageProviderWrapper({ children }) {
   const pathname = usePathname()
   
   // Extract language from URL synchronously (works on both server and client)
+  // Logic: / → en, /pt → pt, /es → es, /pt/slug → pt, /es/slug → es, /en/slug → en
   let initialLang = defaultLanguage
   
   if (typeof window !== 'undefined') {
     // Client-side: Try URL first, then localStorage
-    const pathLang = pathname?.split('/')[1]
-    if (supportedLanguages.includes(pathLang)) {
-      initialLang = pathLang
+    const pathSegments = pathname?.split('/').filter(Boolean)
+    const firstSegment = pathSegments[0]
+    
+    if (supportedLanguages.includes(firstSegment)) {
+      initialLang = firstSegment
+    } else if (pathname === '/' || !firstSegment) {
+      // Root path or empty → English (default)
+      initialLang = defaultLanguage
     } else {
+      // Try localStorage as fallback
       const savedLang = localStorage.getItem('language')
       if (savedLang && supportedLanguages.includes(savedLang)) {
         initialLang = savedLang
@@ -23,9 +30,13 @@ export default function LanguageProviderWrapper({ children }) {
     }
   } else {
     // Server-side: Try to extract from pathname
-    const pathLang = pathname?.split('/')[1]
-    if (supportedLanguages.includes(pathLang)) {
-      initialLang = pathLang
+    const pathSegments = pathname?.split('/').filter(Boolean)
+    const firstSegment = pathSegments[0]
+    
+    if (supportedLanguages.includes(firstSegment)) {
+      initialLang = firstSegment
+    } else if (pathname === '/' || !firstSegment) {
+      initialLang = defaultLanguage
     }
   }
 
