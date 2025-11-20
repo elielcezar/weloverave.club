@@ -1,14 +1,13 @@
 module.exports = {
     apps: [{
       name: 'nextjs-app',
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start',
-      cwd: process.cwd(), // Usa o diretório atual automaticamente
+      script: '.next/standalone/server.js', // Usa o servidor standalone gerado
+      cwd: process.cwd(),
       instances: 1,
       exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
-        PORT: process.env.PORT || 3000 // Pode ser sobrescrito por variável de ambiente
+        PORT: process.env.PORT || 3010
       },
       error_file: './logs/err.log',
       out_file: './logs/out.log',
