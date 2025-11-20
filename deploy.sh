@@ -31,6 +31,11 @@ git pull origin main || {
 }
 echo -e "${GREEN}✓ Git pull concluído${NC}"
 
+# Limpar build anterior (opcional, mas recomendado)
+echo -e "${YELLOW}🧹 Limpando build anterior...${NC}"
+rm -rf .next
+echo -e "${GREEN}✓ Build anterior removido${NC}"
+
 # Instalar dependências
 echo -e "${YELLOW}📦 Instalando dependências...${NC}"
 npm install --production || {
