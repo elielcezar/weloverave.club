@@ -69,11 +69,6 @@ export default async function PostsPage({ searchParams }) {
       })
     : posts
 
-  // Debug: log filtered posts count (remove in production)
-  if (categoriaNome) {
-    console.log(`Filtrando por categoria: ${categoriaNome}`)
-    console.log(`Posts encontrados: ${filteredPosts.length} de ${posts.length}`)
-  }
 
   return (
     <main className="posts-page">

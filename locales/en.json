@@ -1,0 +1,51 @@
+{
+  "menu": {
+    "home": "HOME",
+    "allNews": "ALL NEWS",
+    "news": "NEWS"
+  },
+  "common": {
+    "readMore": "Read more",
+    "loadMore": "Load more",
+    "noPosts": "No posts found",
+    "noPostsCategory": "No posts found for this category",
+    "backToAll": "View all news",
+    "relatedPosts": "Related Posts",
+    "share": "Share",
+    "tags": "Tags",
+    "comments": "Comments",
+    "leaveComment": "Leave a comment",
+    "sendComment": "Send Comment",
+    "noComments": "Be the first to comment!",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Receive the latest electronic music news directly in your email.",
+      "placeholder": "Your email...",
+      "subscribe": "Subscribe"
+    },
+    "search": {
+      "placeholder": "Type to search and press Enter..."
+    },
+    "notAvailable": {
+      "title": "Content not available",
+      "message": "This content is not available in {language}",
+      "availableIn": "Available in:"
+    }
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "popularPosts": "Popular Posts",
+    "socialMedia": "Social Media",
+    "copyright": "All rights reserved"
+  },
+  "categories": {
+    "all": "All News",
+    "latest": "Latest News"
+  },
+  "post": {
+    "by": "By",
+    "readTime": "min read",
+    "publishedOn": "Published on"
+  }
+}
+

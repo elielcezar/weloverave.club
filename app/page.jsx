@@ -1,15 +1,8 @@
-import HeroSection from '@/components/Hero/HeroSection'
-import MainContent from '@/components/MainContent/MainContent'
-import { fetchPosts } from '@/services/api'
+import { redirect } from 'next/navigation'
+import { defaultLanguage } from '@/utils/translations'
 
-export default async function Home() {
-  const posts = await fetchPosts()
-
-  return (
-    <main>
-      <HeroSection posts={posts} />
-      <MainContent posts={posts} />
-    </main>
-  )
+export default function RootPage() {
+  // Redirect to default language
+  redirect(`/${defaultLanguage}`)
 }
 

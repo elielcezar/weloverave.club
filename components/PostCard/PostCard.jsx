@@ -3,9 +3,12 @@ import Link from 'next/link'
 import { FaUser, FaClock, FaBookReader } from 'react-icons/fa'
 import './PostCard.css'
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, lang = 'en' }) => {
+  // Extract slug without language prefix
+  const slug = post.slug ? post.slug.replace(/^(pt|en|es)\//, '') : post.id
+  
   return (
-    <Link href={`/posts/${post.slug || post.id}`}>
+    <Link href={`/${lang}/${slug}`}>
       <article className="post-card">
         <div className="post-card__image-wrapper">
           <img 

@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import './HeroSection.css'
 
-const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false }) => {
+const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false, lang = 'en' }) => {
   // Normalize category for comparison (remove accents, convert to lowercase)
   const normalizeCategory = (cat) => {
     if (!cat) return ''
@@ -62,8 +62,11 @@ const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false }
         </div>
       )}
       <div className="hero-grid">
-        {heroPosts.map((item) => (
-          <Link href={`/posts/${item.slug || item.id}`} key={item.id}>
+        {heroPosts.map((item) => {
+          // Extract slug without language prefix
+          const slug = item.slug ? item.slug.replace(/^(pt|en|es)\//, '') : item.id
+          return (
+          <Link href={`/${lang}/${slug}`} key={item.id}>
             <article className="hero-card">
               <div className="hero-card__image">
                 <img src={item.image} alt={item.title} />
@@ -82,7 +85,8 @@ const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false }
               </div>
             </article>
           </Link>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

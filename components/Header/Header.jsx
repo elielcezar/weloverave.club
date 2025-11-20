@@ -2,12 +2,22 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { FaSearch, FaBars, FaTimes } from 'react-icons/fa'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { getTranslation } from '@/utils/translations'
+import LanguageSelector from '@/components/LanguageSelector/LanguageSelector'
 import './Header.css'
 
 const Header = ({ categorias = [] }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const pathname = usePathname()
+  
+  // Get language from context (always available since we're inside LanguageProvider)
+  const { language } = useLanguage()
+  
+  const t = (key) => getTranslation(key, language)
 
   return (
     <header className="header">
@@ -26,13 +36,15 @@ const Header = ({ categorias = [] }) => {
           <nav className={`main-nav ${isMenuOpen ? 'active' : ''}`}>
             <ul className="nav-list">
               <li className="nav-item">
-                <Link href="/" className="nav-link active">HOME</Link>
+                <Link href={`/${language}`} className="nav-link active">
+                  {t('menu.home')}
+                </Link>
               </li>
               {categorias.length > 0 ? (
                 categorias.map((categoria) => (
                   <li key={categoria.id} className="nav-item">
                     <Link 
-                      href={`/posts?categoria=${categoria.slug}`} 
+                      href={`/${language}?categoria=${categoria.slug}`} 
                       className="nav-link"
                     >
                       {categoria.nome.toUpperCase()}
@@ -41,24 +53,26 @@ const Header = ({ categorias = [] }) => {
                 ))
               ) : (
                 <li className="nav-item">
-                  <Link href="/posts" className="nav-link">NOTÍCIAS</Link>
+                  <Link href={`/${language}`} className="nav-link">
+                    {t('menu.news')}
+                  </Link>
                 </li>
               )}
               <li className="nav-item">
-                <Link href="/posts" className="nav-link">TODAS AS NOTÍCIAS</Link>
+                <Link href={`/${language}`} className="nav-link">
+                  {t('menu.allNews')}
+                </Link>
               </li>
             </ul>
           </nav>
 
-          {/* Search & Theme (Right) */}
+          {/* Search & Language (Right) */}
           <div className="header-actions">
-            <button className="theme-toggle" aria-label="Toggle Theme">
-              🌙
-            </button>
+            <LanguageSelector />
             <button
               className="search-toggle"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="Buscar"
+              aria-label={t('common.search.placeholder')}
             >
               <FaSearch />
             </button>
@@ -70,7 +84,7 @@ const Header = ({ categorias = [] }) => {
           <div className="search-bar">
             <input
               type="text"
-              placeholder="Digite para buscar e pressione Enter..."
+              placeholder={t('common.search.placeholder')}
               className="search-input"
             />
           </div>

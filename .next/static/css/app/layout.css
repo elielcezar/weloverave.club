@@ -1,3 +1,73 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #00d9a5;
+  --secondary-color: #00bfa5;
+  --dark-bg: #0a0a0a;
+  --light-bg: #ffffff;
+  --gray-bg: #f8f9fa;
+  --text-dark: #2c2c2c;
+  --text-light: #666666;
+  --border-color: #e8e8e8;
+  --purple-tag: #9146ff;
+  --red-tag: #ff4757;
+  --blue-tag: #3742fa;
+  --pink-tag: #ff6b9d;
+}
+
+body {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-dark);
+  line-height: 1.6;
+  background-color: var(--light-bg);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-wide {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+
 /*!**************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/Footer/Footer.css ***!
   \**************************************************************************************************************************************************************************************************************************************************************************/
@@ -230,73 +300,98 @@
 }
 
 
-/*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css ***!
-  \*************************************************************************************************************************************************************************************************************************************************************/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/LanguageSelector/LanguageSelector.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+.language-selector {
+  position: relative;
+  display: inline-block;
 }
 
-:root {
-  --primary-color: #00d9a5;
-  --secondary-color: #00bfa5;
-  --dark-bg: #0a0a0a;
-  --light-bg: #ffffff;
-  --gray-bg: #f8f9fa;
-  --text-dark: #2c2c2c;
-  --text-light: #666666;
-  --border-color: #e8e8e8;
-  --purple-tag: #9146ff;
-  --red-tag: #ff4757;
-  --blue-tag: #3742fa;
-  --pink-tag: #ff6b9d;
-}
-
-body {
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text-dark);
-  line-height: 1.6;
-  background-color: var(--light-bg);
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: var(--primary-color);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-button {
-  border: none;
-  outline: none;
+.language-selector__button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  font-family: inherit;
   transition: all 0.3s ease;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.language-selector__button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-.container-wide {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
+.language-selector__current {
+  text-transform: uppercase;
+}
+
+.language-selector__arrow {
+  font-size: 8px;
+  transition: transform 0.3s ease;
+}
+
+.language-selector__button[aria-expanded="true"] .language-selector__arrow {
+  transform: rotate(180deg);
+}
+
+.language-selector__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 150px;
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.language-selector__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.language-selector__option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-selector__option.active {
+  background-color: rgba(0, 217, 165, 0.2);
+  color: #00D9A5;
+}
+
+.language-selector__code {
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.language-selector__name {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.language-selector__option.active .language-selector__name {
+  color: rgba(0, 217, 165, 0.8);
 }
 
 

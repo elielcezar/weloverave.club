@@ -1,0 +1,51 @@
+{
+  "menu": {
+    "home": "HOME",
+    "allNews": "TODAS AS NOTÍCIAS",
+    "news": "NOTÍCIAS"
+  },
+  "common": {
+    "readMore": "Ler mais",
+    "loadMore": "Carregar mais",
+    "noPosts": "Nenhum post encontrado",
+    "noPostsCategory": "Nenhum post encontrado para esta categoria",
+    "backToAll": "Ver todas as notícias",
+    "relatedPosts": "Posts Relacionados",
+    "share": "Compartilhe",
+    "tags": "Tags",
+    "comments": "Comentários",
+    "leaveComment": "Deixe seu comentário",
+    "sendComment": "Enviar Comentário",
+    "noComments": "Seja o primeiro a comentar!",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Receba as últimas notícias sobre música eletrônica direto no seu email.",
+      "placeholder": "Seu email...",
+      "subscribe": "Inscrever-se"
+    },
+    "search": {
+      "placeholder": "Digite para buscar e pressione Enter..."
+    },
+    "notAvailable": {
+      "title": "Conteúdo não disponível",
+      "message": "Este conteúdo não está disponível em {language}",
+      "availableIn": "Disponível em:"
+    }
+  },
+  "footer": {
+    "quickLinks": "Links Rápidos",
+    "popularPosts": "Posts Populares",
+    "socialMedia": "Redes Sociais",
+    "copyright": "Todos os direitos reservados"
+  },
+  "categories": {
+    "all": "Todas as Notícias",
+    "latest": "Últimas Notícias"
+  },
+  "post": {
+    "by": "Por",
+    "readTime": "min de leitura",
+    "publishedOn": "Publicado em"
+  }
+}
+
