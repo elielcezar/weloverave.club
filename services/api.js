@@ -55,6 +55,24 @@ export const fetchPostById = async (id) => {
     }
 };
 
+export const fetchPostBySlug = async (slug) => {
+    try {
+        const posts = await fetchPosts();
+        // Remove 'pt/' prefix if present and normalize slug
+        const normalizedSlug = slug.replace(/^pt\//, '').trim();
+        const post = posts.find(p => {
+            if (!p.slug) return false;
+            // Remove 'pt/' prefix from post slug if present
+            const postSlug = p.slug.replace(/^pt\//, '').trim();
+            return postSlug === normalizedSlug || p.slug === slug;
+        });
+        return post || null;
+    } catch (error) {
+        console.error('Error fetching post by slug:', error);
+        return null;
+    }
+};
+
 export const fetchRelatedPosts = async (currentPostId, limit = 3) => {
     try {
         const posts = await fetchPosts();
@@ -134,7 +152,7 @@ const mapPost = (apiPost) => {
         author: 'WeLoveRave Team',
         authorImage: 'https://i.pravatar.cc/150?img=12',
         date: date,
-        slug: apiPost.urlAmigavel || '',
+        slug: apiPost.urlAmigavel ? apiPost.urlAmigavel.replace(/^pt\//, '') : '',
         featured: apiPost.destaque || false,
         tags: tags,
         comments: 0, // API doesn't provide comments count

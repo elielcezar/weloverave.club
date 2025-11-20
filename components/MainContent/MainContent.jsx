@@ -20,7 +20,8 @@ const MainContent = ({ posts = [] }) => {
         {/* Main Layout: Posts + Sidebar */}
         <div className="content-layout">
           <div className="posts-section">
-            <SectionTitle title="Latest in Tech" subtitle="Demo" />
+            
+            <SectionTitle title="Últimas Notícias" />
 
             <div className="posts-grid">
               {mainPosts.map(post => (

@@ -1,11 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { FaUser, FaClock, FaComment } from 'react-icons/fa'
+import { FaUser, FaClock, FaBookReader } from 'react-icons/fa'
 import './PostCard.css'
 
 const PostCard = ({ post }) => {
   return (
-    <Link href={`/posts/${post.id}`}>
+    <Link href={`/posts/${post.slug || post.id}`}>
       <article className="post-card">
         <div className="post-card__image-wrapper">
           <img 
@@ -21,16 +21,13 @@ const PostCard = ({ post }) => {
         <div className="post-card__content">
           <h3 className="post-card__title">{post.title}</h3>
           
-          <div className="post-card__meta">
-            <span className="post-card__meta-item">
-              <FaUser /> By {post.author || 'Admin'}
-            </span>
+          <div className="post-card__meta">           
             <span className="post-card__meta-item">
               <FaClock /> {post.date || 'Data não disponível'}
             </span>
-            {post.comments !== undefined && (
+            {post.readTime && (
               <span className="post-card__meta-item">
-                <FaComment /> {post.comments}
+                <FaBookReader /> {post.readTime}
               </span>
             )}
           </div>

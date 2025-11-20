@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import './HeroSection.css'
 
 const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false }) => {
@@ -62,23 +63,25 @@ const HeroSection = ({ posts = [], categoria = null, showCategoryTitle = false }
       )}
       <div className="hero-grid">
         {heroPosts.map((item) => (
-          <article key={item.id} className="hero-card">
-            <div className="hero-card__image">
-              <img src={item.image} alt={item.title} />
-              <div className="hero-card__overlay"></div>
-            </div>
-            <div className="hero-card__content">
-              <span className={`category-tag category-tag--${item.categoryColor || 'blue'}`}>
-                {item.category || 'News'}
-              </span>
-              <h2 className="hero-card__title">{item.title || 'Sem título'}</h2>
-              <div className="hero-card__meta">
-                <span className="hero-card__author">{item.author || 'Admin'}</span>
-                <span className="hero-card__separator">—</span>
-                <span className="hero-card__date">{item.date || 'Data não disponível'}</span>
+          <Link href={`/posts/${item.slug || item.id}`} key={item.id}>
+            <article className="hero-card">
+              <div className="hero-card__image">
+                <img src={item.image} alt={item.title} />
+                <div className="hero-card__overlay"></div>
               </div>
-            </div>
-          </article>
+              <div className="hero-card__content">
+                <span className={`category-tag category-tag--${item.categoryColor || 'blue'}`}>
+                  {item.category || 'News'}
+                </span>              
+                <h2 className="hero-card__title">{item.title || 'Sem título'}</h2>
+                <div className="hero-card__meta">
+                  <span className="hero-card__author">{item.author || 'Admin'}</span>
+                  <span className="hero-card__separator">—</span>
+                  <span className="hero-card__date">{item.date || 'Data não disponível'}</span>
+                </div>
+              </div>
+            </article>
+          </Link>
         ))}
       </div>
     </section>

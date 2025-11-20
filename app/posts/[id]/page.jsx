@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { fetchPostById, fetchRelatedPosts } from '@/services/api'
+import { fetchPostBySlug, fetchRelatedPosts } from '@/services/api'
 import { notFound } from 'next/navigation'
 import { FaUser, FaClock, FaComment, FaFacebookF, FaTwitter, FaLinkedin, FaWhatsapp } from 'react-icons/fa'
 import './post.css'
 
 export async function generateMetadata({ params }) {
-  const { id } = await params
-  const post = await fetchPostById(id)
+  const { id: slug } = await params
+  const post = await fetchPostBySlug(slug)
 
   if (!post) {
     return {
@@ -22,8 +22,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PostPage({ params }) {
-  const { id } = await params
-  const post = await fetchPostById(id)
+  const { id: slug } = await params
+  const post = await fetchPostBySlug(slug)
 
   if (!post) {
     notFound()
@@ -146,7 +146,7 @@ export default async function PostPage({ params }) {
                 <h3 className="sidebar-widget__title">Posts Relacionados</h3>
                 <div className="related-posts">
                   {relatedPosts.map(relatedPost => (
-                    <Link href={`/posts/${relatedPost.id}`} key={relatedPost.id}>
+                    <Link href={`/posts/${relatedPost.slug || relatedPost.id}`} key={relatedPost.id}>
                       <article className="related-post">
                         <img
                           src={relatedPost.image}

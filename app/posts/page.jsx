@@ -99,7 +99,7 @@ export default async function PostsPage({ searchParams }) {
             {filteredPosts.length > 0 ? (
               <div className="posts-list">
                 {filteredPosts.map(post => (
-                  <Link href={`/posts/${post.id}`} key={post.id}>
+                  <Link href={`/posts/${post.slug || post.id}`} key={post.id}>
                     <article className="post-list-item">
                       <div className="post-list-item__image">
                         <img src={post.image} alt={post.title} />
