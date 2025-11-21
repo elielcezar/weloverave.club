@@ -28,7 +28,7 @@ const TopBar = () => {
 
           <div className="topbar-center">
             <a href="/" className="logo-section">
-              <div className="logo-main">GOOD<span className="logo-accent">NEWS</span></div>
+              <div className="logo-main">WE<span className="logo-accent">LOVE</span>RAVE</div>
             </a>
           </div>
 

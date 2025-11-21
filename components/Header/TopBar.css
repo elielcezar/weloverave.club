@@ -44,9 +44,10 @@
 }
 
 .logo-accent {
-  color: #00D9A5;
+  color: #f3004d;
   /* Green from image */
-  margin-left: -5px;
+  margin: 0;
+  font-weight: 900;
 }
 
 .social-icons {

@@ -93,24 +93,25 @@ export default async function PostPage({ params }) {
           <span>/</span>
           <span>{post.category}</span>
         </nav>
-                  
-        
-        <div className="single-post__layout">
-          
-          {/* Main Content */}
-          <article className="single-post__content">
-            <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+
+        <div style={{ position: 'relative', width: '100%', height: '600px' }}>
               <Image 
                 src={post.image} 
                 alt={post.title}
                 fill
-                sizes="(max-width: 1024px) 100vw, 800px"
+                sizes="(max-width: 1024px) 100vw, 400px"
                 priority
                 style={{ objectFit: 'cover' }}
                 className="single-post__image"
               />
             </div>
-
+                  
+        
+        <div className="single-post__layout">
+        
+          
+          {/* Main Content */}
+          <article className="single-post__content">
             {/* Post Header */}
             <header className="post-header">
               <span className={`post-category category-tag--${post.categoryColor}`}>

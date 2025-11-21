@@ -39,7 +39,19 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-### 1.2. Configurar `ecosystem.config.js`
+### 1.2. Configurar `.gitignore`
+
+**IMPORTANTE:** Certifique-se de que o `.gitignore` inclui a pasta `.next`:
+
+```gitignore
+# Next.js
+.next
+out
+```
+
+A pasta `.next` contém arquivos gerados pelo build e **nunca deve ser versionada** no Git. Isso evita conflitos durante o `git pull`.
+
+### 1.3. Configurar `ecosystem.config.js`
 
 Crie o arquivo `ecosystem.config.js` na raiz do projeto:
 
@@ -67,6 +79,20 @@ module.exports = {
 ```
 
 **Importante:** Verifique se a porta escolhida está livre antes de configurar.
+
+### 1.4. Script de Deploy Automatizado
+
+O projeto inclui um script `deploy.sh` que automatiza todo o processo de deploy. Este script:
+- Faz pull do Git
+- Limpa o build anterior
+- Instala dependências
+- Faz novo build
+- Recria o link simbólico para arquivos estáticos
+- Reinicia o PM2
+
+O script está pronto para uso, mas você pode ajustar as variáveis no início do arquivo se necessário:
+- `PROJECT_DIR`: Diretório do projeto no servidor
+- `PM2_APP_NAME`: Nome da aplicação no PM2
 
 ## 🖥️ Passo 2: Preparação do Servidor VPS
 
@@ -325,10 +351,38 @@ sudo tail -f /var/log/nginx/access.log
 
 ## 🔄 Passo 6: Atualizações Futuras
 
-Quando precisar atualizar o código:
+### 6.1. Usando o Script de Deploy (Recomendado)
+
+O projeto inclui um script `deploy.sh` que automatiza todo o processo de deploy:
 
 ```bash
 cd /home/seu-usuario/htdocs/seu-dominio.com
+
+# Tornar o script executável (só precisa fazer uma vez)
+chmod +x deploy.sh
+
+# Executar o script de deploy
+./deploy.sh
+```
+
+O script automaticamente:
+- Faz `git pull`
+- Limpa o build anterior (remove `.next`)
+- Instala dependências
+- Faz novo build
+- Recria o link simbólico para arquivos estáticos
+- Reinicia o PM2
+- Mostra status e logs
+
+### 6.2. Deploy Manual (Alternativa)
+
+Se preferir fazer manualmente:
+
+```bash
+cd /home/seu-usuario/htdocs/seu-dominio.com
+
+# Remover build anterior (evita conflitos)
+rm -rf .next
 
 # Fazer pull das mudanças
 git pull origin main
@@ -339,11 +393,9 @@ npm install --production
 # Fazer novo build
 npm run build
 
-# Verificar se o link simbólico ainda existe (geralmente persiste)
-ls -la .next/standalone/.next/static
-
-# Se o link não existir, recriar:
+# Recriar link simbólico para arquivos estáticos
 mkdir -p .next/standalone/.next
+rm -f .next/standalone/.next/static
 ln -sf ../../static .next/standalone/.next/static
 
 # Reiniciar PM2
@@ -352,6 +404,8 @@ pm2 restart nextjs-app
 # Verificar logs
 pm2 logs nextjs-app --lines 20
 ```
+
+**Nota:** O link simbólico precisa ser recriado após cada build porque o Next.js gera novos arquivos estáticos com hashes diferentes.
 
 ## 🛠️ Comandos Úteis
 
@@ -492,13 +546,42 @@ curl http://localhost:3000
 3. Verificar logs do PM2 para erros
 4. Verificar configuração do nginx
 
+### Problema: Erro no git pull - arquivos da pasta .next causam conflito
+
+**Erro típico:**
+```
+error: The following untracked working tree files would be overwritten by merge:
+        .next/server/app/[lang]/[slug]/page.js
+        ...
+Please move or remove them before you merge.
+```
+
+**Solução:**
+```bash
+# Remover a pasta .next inteira (será recriada no build)
+rm -rf .next
+
+# Fazer pull novamente
+git pull origin main
+
+# Executar o script de deploy
+./deploy.sh
+```
+
+**Prevenção:** Certifique-se de que o `.gitignore` inclui `.next` para evitar este problema no futuro.
+
 ## 📝 Checklist de Deploy
 
+### Configuração Inicial
 - [ ] Node.js 18+ instalado
 - [ ] PM2 instalado globalmente
 - [ ] `next.config.js` configurado com `output: 'standalone'`
+- [ ] `.gitignore` configurado com `.next` e `out`
 - [ ] `ecosystem.config.js` criado e configurado
+- [ ] `deploy.sh` criado e configurado
 - [ ] Porta verificada e disponível
+
+### Deploy Inicial
 - [ ] Projeto clonado/uploadado no servidor
 - [ ] `npm install --production` executado
 - [ ] `npm run build` executado com sucesso
@@ -510,6 +593,10 @@ curl http://localhost:3000
 - [ ] Site acessível via HTTPS
 - [ ] CSS e JS carregando corretamente
 - [ ] Backend funcionando (`/api/*`)
+
+### Deploy Futuro
+- [ ] Script `deploy.sh` executável (`chmod +x deploy.sh`)
+- [ ] Processo de deploy testado e funcionando
 
 ## 🔐 Segurança
 
