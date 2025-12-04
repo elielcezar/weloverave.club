@@ -8,10 +8,14 @@
 }
 
 .header-content {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
+  justify-content: space-around;
   height: 60px;
+  /*display: flex;
+  justify-content: space-between;
+  align-items: center;*/
 }
 
 /* Navigation */
@@ -105,6 +109,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  justify-content: flex-end;
 }
 
 .search-toggle,
@@ -241,5 +246,6 @@
 
   .header-actions {
     margin-left: 0;
+
   }
 }

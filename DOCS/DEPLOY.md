@@ -565,6 +565,7 @@ rm -rf .next
 git pull origin main
 
 # Executar o script de deploy
+chmod +x deploy.sh
 ./deploy.sh
 ```
 

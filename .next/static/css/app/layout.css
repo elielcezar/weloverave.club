@@ -84,7 +84,7 @@ button {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 40px;
   gap: 40px;
 }
@@ -181,12 +181,11 @@ button {
 }
 
 .footer-links a {
-  font-size: 14px;
+
   color: rgba(255, 255, 255, 0.7);
   transition: all 0.3s ease;
   display: inline-block;
-  position: relative;
-  padding-left: 12px;
+  position: relative;  
 }
 
 .footer-links a::before {
@@ -311,8 +310,8 @@ button {
 .language-selector__button {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 6px 10px;
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 4px;
@@ -326,6 +325,17 @@ button {
 .language-selector__button:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+.language-selector__flag {
+  width: 30px;
+  height: 20px;
+  border-radius: 2px;
+  display: block;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  object-fit: cover;
 }
 
 .language-selector__current {
@@ -360,7 +370,6 @@ button {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 10px 16px;
   background: none;
   border: none;
@@ -380,6 +389,13 @@ button {
   color: #00D9A5;
 }
 
+.language-selector__flag-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
 .language-selector__code {
   font-weight: 600;
   margin-right: 8px;
@@ -387,11 +403,12 @@ button {
 
 .language-selector__name {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .language-selector__option.active .language-selector__name {
-  color: rgba(0, 217, 165, 0.8);
+  color: rgba(0, 217, 165, 0.9);
 }
 
 
@@ -409,10 +426,14 @@ button {
 }
 
 .header-content {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
+  justify-content: space-around;
   height: 60px;
+  /*display: flex;
+  justify-content: space-between;
+  align-items: center;*/
 }
 
 /* Navigation */
@@ -506,6 +527,7 @@ button {
   display: flex;
   align-items: center;
   gap: 15px;
+  justify-content: flex-end;
 }
 
 .search-toggle,
@@ -642,6 +664,7 @@ button {
 
   .header-actions {
     margin-left: 0;
+
   }
 }
 /*!**************************************************************************************************************************************************************************************************************************************************************************!*\

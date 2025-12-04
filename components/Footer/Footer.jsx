@@ -35,58 +35,44 @@ const Footer = () => {
                 {lang === 'es' && 'Tu fuente definitiva de noticias sobre música electrónica. Cobertura completa de festivales, lanzamientos, entrevistas exclusivas con DJs y productores.'}
               </p>
               <p className="footer-text">
-                <strong>{lang === 'pt' ? 'Email:' : lang === 'en' ? 'Email:' : 'Correo:'}</strong> contact@weloverave.club<br />
-                <strong>{lang === 'pt' ? 'Contato:' : lang === 'en' ? 'Contact:' : 'Contacto:'}</strong> +55 11 9999-9999
+                <strong>{lang === 'pt' ? 'Email:' : lang === 'en' ? 'Email:' : 'Correo:'}</strong> contact@weloverave.club
               </p>
             </div>
 
-            {/* Popular Posts */}
-            <div className="footer-widget">
-              <h3 className="footer-widget-title">{t('footer.popularPosts')}</h3>
-              <div className="footer-posts">
-                <article className="footer-post">
-                  <h4 className="footer-post-title">
-                    Calvin Harris Anuncia Novo Album para 2024
-                  </h4>
-                  <span className="footer-post-date">Nov 18, 2024</span>
-                </article>
-                <article className="footer-post">
-                  <h4 className="footer-post-title">
-                    Tomorrowland Revela Line-up Completo
-                  </h4>
-                  <span className="footer-post-date">Nov 17, 2024</span>
-                </article>
-                <article className="footer-post">
-                  <h4 className="footer-post-title">
-                    Guia Completo: Como Produzir House Music
-                  </h4>
-                  <span className="footer-post-date">Nov 16, 2024</span>
-                </article>
-              </div>
-            </div>
-
-            {/* Categories */}
-            <div className="footer-widget">
+             {/* Categories */}
+             <div className="footer-widget">
               <h3 className="footer-widget-title">
                 {lang === 'pt' ? 'Categorias' : lang === 'en' ? 'Categories' : 'Categorías'}
               </h3>
               <ul className="footer-links">
                 <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Todas' : lang === 'en' ? 'All' : 'Todas'}</Link></li>
-                <li><Link href={`${getHomeUrl(lang)}?categoria=festival`}>{lang === 'pt' ? 'Festivais' : lang === 'en' ? 'Festivals' : 'Festivales'}</Link></li>
+                <li><Link href={`${getHomeUrl(lang)}?categoria=festival`}>{lang === 'pt' ? 'Eventos' : lang === 'en' ? 'Events' : 'Eventos'}</Link></li>
                 <li><Link href={`${getHomeUrl(lang)}?categoria=music`}>{lang === 'pt' ? 'Música' : lang === 'en' ? 'Music' : 'Música'}</Link></li>
-                <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Notícias' : lang === 'en' ? 'News' : 'Noticias'}</Link></li>
+                <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Tecnologia' : lang === 'en' ? 'Technology' : 'Tecnología'}</Link></li>
               </ul>
             </div>
 
-            {/* Quick Links */}
-            <div className="footer-widget">
-              <h3 className="footer-widget-title">{t('footer.quickLinks')}</h3>
-              <ul className="footer-links">
-                <li><Link href={getHomeUrl(lang)}>{t('menu.home')}</Link></li>
-                <li><Link href={getHomeUrl(lang)}>{t('menu.allNews')}</Link></li>
-                <li><Link href={getHomeUrl(lang)}>{lang === 'pt' ? 'Contato' : lang === 'en' ? 'Contact' : 'Contacto'}</Link></li>
-              </ul>
-            </div>
+            {/* Popular Posts */}
+            <div className="footer-widget">              
+              {/* Newsletter Widget */}
+                <div className="widget widget-newsletter">
+                  <h3 className="widget-title">{t('common.newsletter.title')}</h3>
+                  <p className="widget-text">
+                    {t('common.newsletter.description')}
+                  </p>
+                  <form className="newsletter-form">
+                    <input
+                      type="email"
+                      placeholder={t('common.newsletter.placeholder')}
+                      className="newsletter-input"
+                    />
+                    <button type="submit" className="newsletter-btn">
+                      {t('common.newsletter.subscribe')}
+                    </button>
+                  </form>
+                </div>              
+            </div>           
+
           </div>
         </div>
       </div>

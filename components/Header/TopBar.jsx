@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
+import Image from 'next/image'
+
 import './TopBar.css'
 
 const TopBar = () => {
@@ -10,33 +11,19 @@ const TopBar = () => {
       <div className="container-wide">
         <div className="topbar-content">
           <div className="topbar-left">
-            <div className="social-icons">
-              <a href="#" className="social-link" aria-label="Facebook">
-                <FaFacebookF />
-              </a>
-              <a href="#" className="social-link" aria-label="Twitter">
-                <FaTwitter />
-              </a>
-              <a href="#" className="social-link" aria-label="Instagram">
-                <FaInstagram />
-              </a>
-              <a href="#" className="social-link" aria-label="YouTube">
-                <FaYoutube />
-              </a>
-            </div>
+            
           </div>
 
           <div className="topbar-center">
             <a href="/" className="logo-section">
-              <div className="logo-main">WE<span className="logo-accent">LOVE</span>RAVE</div>
+              
+                <Image src="/weloverave.png" alt="We Love Rave" width={400} height={48} />
+              
             </a>
           </div>
 
           <div className="topbar-right">
-            <button className="topbar-btn btn-subscribe">SUBSCRIBE</button>
-            <button className="topbar-btn btn-login">
-              <span className="login-icon">👤</span> LOGIN
-            </button>
+            <button className="topbar-btn btn-subscribe">SUBSCRIBE</button>           
           </div>
         </div>
       </div>

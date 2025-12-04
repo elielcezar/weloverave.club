@@ -52,6 +52,13 @@ export default async function RootLayout({ children }) {
             gtag('config', 'G-816RLJY366');
           `}
         </Script>
+        {/* Google AdSense */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7864415239368120"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          async
+        />
         <LanguageProviderWrapper>
           <TopBar />
           <Header categorias={categoriasMapped} />

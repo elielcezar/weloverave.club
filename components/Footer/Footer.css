@@ -11,7 +11,7 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
 }
 
@@ -107,12 +107,11 @@
 }
 
 .footer-links a {
-  font-size: 14px;
+
   color: rgba(255, 255, 255, 0.7);
   transition: all 0.3s ease;
   display: inline-block;
-  position: relative;
-  padding-left: 12px;
+  position: relative;  
 }
 
 .footer-links a::before {

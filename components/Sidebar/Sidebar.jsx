@@ -18,23 +18,7 @@ const Sidebar = ({ posts = [], lang = 'en' }) => {
   return (
     <div className="sidebar">      
 
-      {/* Newsletter Widget */}
-      <div className="widget widget-newsletter">
-        <h3 className="widget-title">{t('common.newsletter.title')}</h3>
-        <p className="widget-text">
-          {t('common.newsletter.description')}
-        </p>
-        <form className="newsletter-form">
-          <input
-            type="email"
-            placeholder={t('common.newsletter.placeholder')}
-            className="newsletter-input"
-          />
-          <button type="submit" className="newsletter-btn">
-            {t('common.newsletter.subscribe')}
-          </button>
-        </form>
-      </div>
+      
     </div>
   )
 }
