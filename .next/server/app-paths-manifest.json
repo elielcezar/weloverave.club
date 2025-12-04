@@ -1,6 +1,7 @@
 {
+  "/api/categorias/route": "app/api/categorias/route.js",
+  "/es/page": "app/es/page.js",
   "/pt/page": "app/pt/page.js",
   "/page": "app/page.js",
-  "/[lang]/[slug]/page": "app/[lang]/[slug]/page.js",
-  "/es/page": "app/es/page.js"
+  "/[lang]/page": "app/[lang]/page.js"
 }

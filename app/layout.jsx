@@ -15,13 +15,26 @@ export const metadata = {
   description: 'Your definitive source for electronic music news, festivals, reviews and releases',
 }
 
-export default async function RootLayout({ children }) {
-  // Fetch categorias on the server side to avoid CORS issues
-  // Use default language for initial load
-  const categorias = await fetchCategorias(defaultLanguage)
+export default async function RootLayout({ children, params }) {
+  // Tentar extrair idioma de params (pode não estar disponível no layout raiz)
+  // Se não estiver disponível, usar defaultLanguage
+  let language = defaultLanguage
+  
+  try {
+    const resolvedParams = await params
+    if (resolvedParams?.lang) {
+      language = resolvedParams.lang
+    }
+  } catch (error) {
+    // params pode não estar disponível no layout raiz
+    language = defaultLanguage
+  }
+
+  // Buscar categorias no servidor (sem CORS)
+  const categorias = await fetchCategorias(language)
   
   // Map categorias to extract the translation and create slugs
-  const categoriasMapped = categorias.map(categoria => {
+  /*const categoriasMapped = categorias.map(categoria => {
     const nome = categoria.nome || 'Category'
     const slug = nome
       .toLowerCase()
@@ -34,10 +47,10 @@ export default async function RootLayout({ children }) {
       nome: nome,
       slug: slug || 'category'
     }
-  })
+  })*/
 
   return (
-    <html lang={defaultLanguage}>
+    <html lang={language}>
       <body className={inter.className}>
         {/* Google Analytics */}
         <Script
@@ -60,10 +73,15 @@ export default async function RootLayout({ children }) {
           async
         />
         <LanguageProviderWrapper>
+          
           <TopBar />
-          <Header categorias={categoriasMapped} />
+          
+          <Header categorias={categorias} />
+          
           {children}
+          
           <Footer />
+        
         </LanguageProviderWrapper>
       </body>
     </html>

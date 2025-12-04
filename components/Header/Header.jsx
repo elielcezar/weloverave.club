@@ -3,11 +3,10 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+//import { usePathname } from 'next/navigation'
 import { FaSearch, FaBars, FaTimes } from 'react-icons/fa'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getTranslation, getHomeUrl } from '@/utils/translations'
-import { fetchCategorias } from '@/services/api'
 import LanguageSelector from '@/components/LanguageSelector/LanguageSelector'
 import './Header.css'
 
@@ -15,24 +14,46 @@ const Header = ({ categorias: initialCategorias = [] }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [categorias, setCategorias] = useState(initialCategorias)
-  const pathname = usePathname()
+  //const pathname = usePathname()
   
   // Get language from context (always available since we're inside LanguageProvider)
   const { language } = useLanguage()
   
-  // Fetch categorias when language changes
+  // Buscar categorias sempre que o idioma mudar (via API route para evitar CORS)
   useEffect(() => {
     const loadCategorias = async () => {
       try {
-        const categoriasData = await fetchCategorias(language)
-        setCategorias(categoriasData)
+        // Usar API route local (mesmo domínio, sem CORS)
+        const baseUrl = typeof window !== 'undefined' 
+          ? window.location.origin 
+          : ''
+        
+        const response = await fetch(`${baseUrl}/api/categorias?lang=${language}`)
+        
+        if (response.ok) {
+          const categoriasData = await response.json()
+          setCategorias(categoriasData)
+        } else {
+          console.error('Error loading categorias:', response.status)
+          // Em caso de erro, usar categorias iniciais como fallback
+          if (initialCategorias.length > 0) {
+            setCategorias(initialCategorias)
+          }
+        }
       } catch (error) {
         console.error('Error loading categorias:', error)
-        // Keep current categorias on error
+        // Em caso de erro, usar categorias iniciais como fallback
+        if (initialCategorias.length > 0) {
+          setCategorias(initialCategorias)
+        }
       }
     }
     
-    loadCategorias()
+    // Buscar categorias sempre que o idioma mudar
+    if (language) {
+      loadCategorias()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language])
   
   const t = (key) => getTranslation(key, language)
