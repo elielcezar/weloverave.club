@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7864415239368120"
           crossOrigin="anonymous"
-        />
+        />        
       </head>      
-      <body className={inter.className}>
+      <body className={inter.className}>      
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-816RLJY366"
@@ -36,6 +36,10 @@ export default function RootLayout({ children }) {
             gtag('js', new Date());
             gtag('config', 'G-816RLJY366');
           `}
+        </Script>
+        {/* Metricool Tracker */}
+        <Script id="metricool-tracker" strategy="afterInteractive">
+          {`function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"a5add28b156761666fc4a4d68ebe5456"})});`}
         </Script>
        
         <LanguageProviderWrapper>

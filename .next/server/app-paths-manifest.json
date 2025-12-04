@@ -1,7 +1,4 @@
 {
   "/api/categorias/route": "app/api/categorias/route.js",
-  "/page": "app/page.js",
-  "/[lang]/[slug]/page": "app/[lang]/[slug]/page.js",
-  "/[lang]/page": "app/[lang]/page.js",
-  "/[lang]/category/[slug]/page": "app/[lang]/category/[slug]/page.js"
+  "/page": "app/page.js"
 }
