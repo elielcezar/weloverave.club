@@ -17,24 +17,24 @@ export const useLanguage = () => {
 export const LanguageProvider = ({ children, initialLang = null }) => {
   const router = useRouter()
   const pathname = usePathname()
-  
+
   // Initialize with a valid language immediately
   const getInitialLanguage = () => {
     if (initialLang && supportedLanguages.includes(initialLang)) {
       return initialLang
     }
-    
+
     // Try URL first
     const pathSegments = pathname?.split('/').filter(Boolean)
     const firstSegment = pathSegments[0]
-    
+
     if (supportedLanguages.includes(firstSegment)) {
       return firstSegment
     } else if (pathname === '/' || !firstSegment) {
       // Root path → English (default)
       return defaultLanguage
     }
-    
+
     if (typeof window !== 'undefined') {
       // Try localStorage as fallback
       const savedLang = localStorage.getItem('language')
@@ -42,10 +42,10 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
         return savedLang
       }
     }
-    
+
     return defaultLanguage
   }
-  
+
   const [language, setLanguage] = useState(getInitialLanguage)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -55,14 +55,14 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
       // Try to get from URL first
       const pathSegments = pathname?.split('/').filter(Boolean)
       const firstSegment = pathSegments[0]
-      
+
       let detectedLang = defaultLanguage
       if (supportedLanguages.includes(firstSegment)) {
         detectedLang = firstSegment
       } else if (pathname === '/' || !firstSegment) {
         detectedLang = defaultLanguage
       }
-      
+
       if (detectedLang !== language) {
         setLanguage(detectedLang)
         localStorage.setItem('language', detectedLang)
@@ -76,41 +76,80 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
     }
   }, [pathname, language])
 
-  const changeLanguage = (newLang) => {
+  const changeLanguage = async (newLang) => {
     if (!supportedLanguages.includes(newLang)) {
       console.warn(`Unsupported language: ${newLang}`)
       return
     }
 
+    const previousLang = language // Save current language before changing
     setLanguage(newLang)
     localStorage.setItem('language', newLang)
 
     // Update URL to reflect new language
     const currentPath = pathname || ''
     const pathParts = currentPath.split('/').filter(Boolean)
-    
+
     // Remove old language prefix if exists
     if (supportedLanguages.includes(pathParts[0])) {
       pathParts.shift()
     }
 
     // Build new path with new language
-    // For English, use root path if it's home, otherwise use /en/ prefix
     let newPath
     if (newLang === 'en') {
-      // If it's home (no path parts), use root
       if (pathParts.length === 0) {
         newPath = '/'
       } else {
-        // Otherwise use /en/ prefix for posts
         newPath = `/${newLang}/${pathParts.join('/')}`
       }
     } else {
-      // For pt/es, always use prefix
       newPath = `/${newLang}${pathParts.length > 0 ? '/' + pathParts.join('/') : ''}`
     }
-    
-    router.push(newPath)
+
+    // Handle category translation if present
+    if (typeof window !== 'undefined' && window.location.search) {
+      const params = new URLSearchParams(window.location.search)
+      const categoriaSlug = params.get('categoria')
+
+      if (categoriaSlug) {
+        try {
+          // Fetch categories in previous language to find the category ID
+          const currentResponse = await fetch(`/api/categorias?lang=${previousLang}`)
+
+          if (currentResponse.ok) {
+            const currentCategorias = await currentResponse.json()
+            const currentCategoria = currentCategorias.find(c => c.slug === categoriaSlug)
+
+            if (currentCategoria) {
+              // Fetch categories in new language to get the translated slug
+              const newResponse = await fetch(`/api/categorias?lang=${newLang}`)
+
+              if (newResponse.ok) {
+                const newCategorias = await newResponse.json()
+                const newCategoria = newCategorias.find(c => c.id === currentCategoria.id)
+
+                if (newCategoria) {
+                  // Use translated slug
+                  params.set('categoria', newCategoria.slug)
+                }
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error translating category:', error)
+        }
+
+        // Add query params (original or translated)
+        newPath += '?' + params.toString()
+      } else {
+        // No categoria param, just preserve other params
+        newPath += window.location.search
+      }
+    }
+
+    // Navigate without scrolling to top
+    router.push(newPath, { scroll: false })
   }
 
   return (
@@ -119,4 +158,3 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
     </LanguageContext.Provider>
   )
 }
-

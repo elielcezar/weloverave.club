@@ -29,6 +29,17 @@
       "static/chunks/main-app.js",
       "static/css/app/es/page.css",
       "static/chunks/app/es/page.js"
+    ],
+    "/api/categorias/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/categorias/route.js"
+    ],
+    "/[lang]/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[lang]/[slug]/page.css",
+      "static/chunks/app/[lang]/[slug]/page.js"
     ]
   }
 }
