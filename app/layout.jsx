@@ -16,6 +16,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7864415239368120"
+          crossOrigin="anonymous"
+        />
+      </head>      
       <body className={inter.className}>
         {/* Google Analytics */}
         <Script
@@ -30,25 +37,14 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-816RLJY366');
           `}
         </Script>
-        {/* Google AdSense */}
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7864415239368120"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-          async
-        />
+       
         <LanguageProviderWrapper>
-
-          <TopBar />
-
-          {/* Header carrega categorias dinamicamente baseado no idioma atual */}
+          <TopBar />          
           <Header />
-
           {children}
-
           <Footer />
-
         </LanguageProviderWrapper>
+
       </body>
     </html>
   )
