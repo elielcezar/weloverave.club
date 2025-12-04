@@ -84,7 +84,7 @@ const Header = () => {
                 categorias.map((categoria) => (
                   <li key={categoria.id} className="nav-item">
                     <Link
-                      href={`${getHomeUrl(language)}?categoria=${categoria.slug}`}
+                      href={`/${language}/category/${categoria.slug}`}
                       className="nav-link"
                     >
                       {categoria.nome.toUpperCase()}

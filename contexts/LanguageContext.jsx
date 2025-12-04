@@ -95,57 +95,63 @@ export const LanguageProvider = ({ children, initialLang = null }) => {
       pathParts.shift()
     }
 
-    // Build new path with new language
+    // Check if we're on a category page (/category/slug)
     let newPath
-    if (newLang === 'en') {
-      if (pathParts.length === 0) {
-        newPath = '/'
-      } else {
-        newPath = `/${newLang}/${pathParts.join('/')}`
-      }
-    } else {
-      newPath = `/${newLang}${pathParts.length > 0 ? '/' + pathParts.join('/') : ''}`
-    }
+    if (pathParts[0] === 'category' && pathParts[1]) {
+      const currentCategorySlug = pathParts[1]
+      let translatedSlug = currentCategorySlug
 
-    // Handle category translation if present
-    if (typeof window !== 'undefined' && window.location.search) {
-      const params = new URLSearchParams(window.location.search)
-      const categoriaSlug = params.get('categoria')
+      try {
+        // Fetch categories in previous language to find the category ID
+        const currentResponse = await fetch(`/api/categorias?lang=${previousLang}`)
 
-      if (categoriaSlug) {
-        try {
-          // Fetch categories in previous language to find the category ID
-          const currentResponse = await fetch(`/api/categorias?lang=${previousLang}`)
+        if (currentResponse.ok) {
+          const currentCategorias = await currentResponse.json()
+          const currentCategoria = currentCategorias.find(c => c.slug === currentCategorySlug)
 
-          if (currentResponse.ok) {
-            const currentCategorias = await currentResponse.json()
-            const currentCategoria = currentCategorias.find(c => c.slug === categoriaSlug)
+          if (currentCategoria) {
+            // Fetch categories in new language to get the translated slug
+            const newResponse = await fetch(`/api/categorias?lang=${newLang}`)
 
-            if (currentCategoria) {
-              // Fetch categories in new language to get the translated slug
-              const newResponse = await fetch(`/api/categorias?lang=${newLang}`)
+            if (newResponse.ok) {
+              const newCategorias = await newResponse.json()
+              const newCategoria = newCategorias.find(c => c.id === currentCategoria.id)
 
-              if (newResponse.ok) {
-                const newCategorias = await newResponse.json()
-                const newCategoria = newCategorias.find(c => c.id === currentCategoria.id)
-
-                if (newCategoria) {
-                  // Use translated slug
-                  params.set('categoria', newCategoria.slug)
-                }
+              if (newCategoria) {
+                translatedSlug = newCategoria.slug
               }
             }
           }
-        } catch (error) {
-          console.error('Error translating category:', error)
         }
-
-        // Add query params (original or translated)
-        newPath += '?' + params.toString()
-      } else {
-        // No categoria param, just preserve other params
-        newPath += window.location.search
+      } catch (error) {
+        console.error('Error translating category:', error)
       }
+
+      // Build new category path (always with language prefix)
+      newPath = `/${newLang}/category/${translatedSlug}`
+    } else if (pathParts.length > 0) {
+      // Post page - translate the slug
+      const currentPostSlug = pathParts[0]
+      let translatedSlug = currentPostSlug
+
+      try {
+        // Use the translate-slug API to get the translated slug
+        const response = await fetch(`/api/translate-slug?slug=${encodeURIComponent(currentPostSlug)}&from=${previousLang}&to=${newLang}`)
+
+        if (response.ok) {
+          const data = await response.json()
+          if (data.translatedSlug) {
+            translatedSlug = data.translatedSlug
+          }
+        }
+      } catch (error) {
+        console.error('Error translating post slug:', error)
+      }
+
+      newPath = `/${newLang}/${translatedSlug}`
+    } else {
+      // Home page
+      newPath = `/${newLang}`
     }
 
     // Navigate without scrolling to top

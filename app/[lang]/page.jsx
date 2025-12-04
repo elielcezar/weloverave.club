@@ -12,7 +12,7 @@ import '../posts/posts.css'
 
 export async function generateMetadata({ params }) {
   const { lang } = await params
-  
+
   if (!supportedLanguages.includes(lang)) {
     return {
       title: 'Language not supported | WeLoveRave'
@@ -27,13 +27,13 @@ export async function generateMetadata({ params }) {
 
 export default async function HomePage({ params, searchParams }) {
   const { lang } = await params
-  
+
   if (!supportedLanguages.includes(lang)) {
     notFound()
   }
 
   const resolvedSearchParams = await searchParams
-  
+
   // Redirect /en to / (home without prefix)
   if (lang === 'en') {
     const queryString = resolvedSearchParams?.categoria ? `?categoria=${resolvedSearchParams.categoria}` : ''
@@ -71,22 +71,22 @@ export default async function HomePage({ params, searchParams }) {
 
   const filteredPosts = categoriaNome
     ? posts.filter(post => {
-        if (!post.category) return false
-        const postCategoryNormalized = normalizeCategory(post.category)
-        const searchCategoryNormalized = normalizeCategory(categoriaNome)
-        const exactMatch = postCategoryNormalized === searchCategoryNormalized
-        const containsMatch = postCategoryNormalized.includes(searchCategoryNormalized) || 
-                             searchCategoryNormalized.includes(postCategoryNormalized)
-        return exactMatch || containsMatch
-      })
+      if (!post.category) return false
+      const postCategoryNormalized = normalizeCategory(post.category)
+      const searchCategoryNormalized = normalizeCategory(categoriaNome)
+      const exactMatch = postCategoryNormalized === searchCategoryNormalized
+      const containsMatch = postCategoryNormalized.includes(searchCategoryNormalized) ||
+        searchCategoryNormalized.includes(postCategoryNormalized)
+      return exactMatch || containsMatch
+    })
     : posts
 
   const t = (key) => getTranslation(key, lang)
 
   return (
     <main className={categoriaNome ? 'posts-page' : ''}>
-      <HeroSection 
-        posts={posts} 
+      <HeroSection
+        posts={posts}
         categoria={categoriaNome}
         showCategoryTitle={!!categoriaNome}
         lang={lang}
@@ -95,9 +95,9 @@ export default async function HomePage({ params, searchParams }) {
         <div className="container-wide">
           <div className="posts-page-layout">
             <div className="posts-page-main">
-              <SectionTitle 
-                title={categoriaNome} 
-                subtitle={`${filteredPosts.length} ${filteredPosts.length === 1 ? (lang === 'pt' ? 'Post' : lang === 'en' ? 'Post' : 'Publicación') : (lang === 'pt' ? 'Posts' : lang === 'en' ? 'Posts' : 'Publicaciones')}`} 
+              <SectionTitle
+                title={categoriaNome}
+                subtitle={`${filteredPosts.length} ${filteredPosts.length === 1 ? (lang === 'pt' ? 'Post' : lang === 'en' ? 'Post' : 'Publicación') : (lang === 'pt' ? 'Posts' : lang === 'en' ? 'Posts' : 'Publicaciones')}`}
               />
               {filteredPosts.length > 0 ? (
                 <div className="posts-list">
@@ -153,7 +153,7 @@ export default async function HomePage({ params, searchParams }) {
           </div>
         </div>
       ) : (
-        <MainContent 
+        <MainContent
           posts={filteredPosts}
           lang={lang}
         />
