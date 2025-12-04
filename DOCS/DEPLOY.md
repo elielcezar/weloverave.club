@@ -206,7 +206,11 @@ pm2 logs nextjs-app --lines 20
 
 ```nginx
 # Template de Vhost para Next.js no CloudPanel
-# Copie e cole no CloudPanel: Sites → seu-dominio.com → Vhost
+# Copie e cole no CloudPanel: Sites → weloverave.club → Vhost
+# 
+# IMPORTANTE: Este projeto é um frontend puro que consome APIs externas
+# (cms.ecwd.cloud). Não há backend local, então todas as requisições 
+# vão para o Next.js na porta 3000.
 
 server {
   listen 80;
@@ -221,7 +225,7 @@ server {
   {{ssl_certificate_key}}
   {{ssl_certificate}}
 
-  server_name seu-dominio.com;
+  server_name weloverave.club;
 
   {{nginx_access_log}}
   {{nginx_error_log}}
@@ -241,38 +245,13 @@ server {
   include /etc/nginx/global_settings;
 
   # ==========================================
-  # BACKEND NODE.JS (seu backend existente)
-  # ==========================================
-  location ^~ /uploads {
-    proxy_pass http://127.0.0.1:3030;
-    proxy_http_version 1.1;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
-
-  location /api {
-    proxy_pass http://127.0.0.1:3030;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_cache_bypass $http_upgrade;
-  }
-
-  # ==========================================
   # PROXY REVERSO PARA NEXT.JS
   # ==========================================
-  # IMPORTANTE: Todas as requisições /_next/* devem ir para o Next.js
-  # O Next.js standalone serve os arquivos estáticos automaticamente
+  # TODAS as requisições vão para o Next.js (porta 3000)
+  # Incluindo /api/* (API routes do Next.js) e /_next/*
   
-  # Proxy reverso para TODAS as requisições (incluindo /_next/static)
   location / {
-    proxy_pass http://127.0.0.1:3000;  # Ajustar porta conforme ecosystem.config.js
+    proxy_pass http://127.0.0.1:3000;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';

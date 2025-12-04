@@ -3,7 +3,6 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-//import { usePathname } from 'next/navigation'
 import { FaSearch, FaBars, FaTimes } from 'react-icons/fa'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getTranslation, getHomeUrl } from '@/utils/translations'
@@ -14,40 +13,21 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [categorias, setCategorias] = useState([])
-  //const pathname = usePathname()
 
-  // Get language from context (always available since we're inside LanguageProvider)
+  // Get language from context
   const { language } = useLanguage()
 
-  // Buscar categorias sempre que o idioma mudar (direto da API externa)
+  // Buscar categorias sempre que o idioma mudar (via API route local)
   useEffect(() => {
     const loadCategorias = async () => {
       try {
-        // Chamar API externa diretamente (mesmo comportamento dos posts)
-        const response = await fetch('https://cms.ecwd.cloud/api/categorias')
+        // Usar API route local para evitar CORS
+        // O Next.js faz a requisição server-to-server para o CMS
+        const response = await fetch(`/api/categorias?lang=${language}`)
 
         if (response.ok) {
-          const data = await response.json()
-
-          // Mapear categorias conforme o idioma (mesma lógica do services/api.js)
-          const mappedCategorias = data.map(categoria => {
-            const translation = categoria.translations?.find(t => t.idioma === language) || categoria.translations?.[0]
-            const nome = translation?.nome || 'Categoria'
-            const slug = nome
-              .toLowerCase()
-              .normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .replace(/\s+/g, '-')
-              .replace(/[^a-z0-9-]/g, '')
-            return {
-              id: categoria.id,
-              nome: nome,
-              slug: slug || 'categoria',
-              idioma: language
-            }
-          })
-
-          setCategorias(mappedCategorias)
+          const categoriasData = await response.json()
+          setCategorias(categoriasData)
         } else {
           console.error('Error loading categorias:', response.status)
         }
@@ -155,4 +135,3 @@ const Header = () => {
 }
 
 export default Header
-
