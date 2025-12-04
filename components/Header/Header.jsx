@@ -19,20 +19,35 @@ const Header = () => {
   // Get language from context (always available since we're inside LanguageProvider)
   const { language } = useLanguage()
 
-  // Buscar categorias sempre que o idioma mudar (via API route para evitar CORS)
+  // Buscar categorias sempre que o idioma mudar (direto da API externa)
   useEffect(() => {
     const loadCategorias = async () => {
       try {
-        // Usar API route local (mesmo domínio, sem CORS)
-        const baseUrl = typeof window !== 'undefined'
-          ? window.location.origin
-          : ''
-
-        const response = await fetch(`${baseUrl}/api/categorias?lang=${language}`)
+        // Chamar API externa diretamente (mesmo comportamento dos posts)
+        const response = await fetch('https://cms.ecwd.cloud/api/categorias')
 
         if (response.ok) {
-          const categoriasData = await response.json()
-          setCategorias(categoriasData)
+          const data = await response.json()
+
+          // Mapear categorias conforme o idioma (mesma lógica do services/api.js)
+          const mappedCategorias = data.map(categoria => {
+            const translation = categoria.translations?.find(t => t.idioma === language) || categoria.translations?.[0]
+            const nome = translation?.nome || 'Categoria'
+            const slug = nome
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/[^a-z0-9-]/g, '')
+            return {
+              id: categoria.id,
+              nome: nome,
+              slug: slug || 'categoria',
+              idioma: language
+            }
+          })
+
+          setCategorias(mappedCategorias)
         } else {
           console.error('Error loading categorias:', response.status)
         }
@@ -45,7 +60,6 @@ const Header = () => {
     if (language) {
       loadCategorias()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language])
 
   const t = (key) => getTranslation(key, language)
