@@ -4,8 +4,6 @@ import TopBar from '@/components/Header/TopBar'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import LanguageProviderWrapper from '@/components/LanguageProviderWrapper'
-import { fetchCategorias } from '@/services/api'
-import { defaultLanguage } from '@/utils/translations'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -15,42 +13,9 @@ export const metadata = {
   description: 'Your definitive source for electronic music news, festivals, reviews and releases',
 }
 
-export default async function RootLayout({ children, params }) {
-  // Tentar extrair idioma de params (pode não estar disponível no layout raiz)
-  // Se não estiver disponível, usar defaultLanguage
-  let language = defaultLanguage
-  
-  try {
-    const resolvedParams = await params
-    if (resolvedParams?.lang) {
-      language = resolvedParams.lang
-    }
-  } catch (error) {
-    // params pode não estar disponível no layout raiz
-    language = defaultLanguage
-  }
-
-  // Buscar categorias no servidor (sem CORS)
-  const categorias = await fetchCategorias(language)
-  
-  // Map categorias to extract the translation and create slugs
-  /*const categoriasMapped = categorias.map(categoria => {
-    const nome = categoria.nome || 'Category'
-    const slug = nome
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-    return {
-      id: categoria.id,
-      nome: nome,
-      slug: slug || 'category'
-    }
-  })*/
-
+export default function RootLayout({ children }) {
   return (
-    <html lang={language}>
+    <html lang="en">
       <body className={inter.className}>
         {/* Google Analytics */}
         <Script
@@ -73,15 +38,16 @@ export default async function RootLayout({ children, params }) {
           async
         />
         <LanguageProviderWrapper>
-          
+
           <TopBar />
-          
-          <Header categorias={categorias} />
-          
+
+          {/* Header carrega categorias dinamicamente baseado no idioma atual */}
+          <Header />
+
           {children}
-          
+
           <Footer />
-        
+
         </LanguageProviderWrapper>
       </body>
     </html>

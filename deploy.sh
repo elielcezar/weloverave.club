@@ -58,6 +58,12 @@ mkdir -p .next/standalone/.next
 rm -f .next/standalone/.next/static
 ln -sf ../../static .next/standalone/.next/static
 
+# Criar link simbólico para pasta public (necessário para imagens estáticas)
+echo -e "${YELLOW}🔗 Criando link simbólico para pasta public...${NC}"
+rm -f .next/standalone/public
+ln -sf ../../public .next/standalone/public
+
+
 # Verificar se o link foi criado
 if [ -L ".next/standalone/.next/static" ]; then
     echo -e "${GREEN}✓ Link simbólico criado com sucesso${NC}"

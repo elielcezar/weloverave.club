@@ -10,52 +10,44 @@ import { getTranslation, getHomeUrl } from '@/utils/translations'
 import LanguageSelector from '@/components/LanguageSelector/LanguageSelector'
 import './Header.css'
 
-const Header = ({ categorias: initialCategorias = [] }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [categorias, setCategorias] = useState(initialCategorias)
+  const [categorias, setCategorias] = useState([])
   //const pathname = usePathname()
-  
+
   // Get language from context (always available since we're inside LanguageProvider)
   const { language } = useLanguage()
-  
+
   // Buscar categorias sempre que o idioma mudar (via API route para evitar CORS)
   useEffect(() => {
     const loadCategorias = async () => {
       try {
         // Usar API route local (mesmo domínio, sem CORS)
-        const baseUrl = typeof window !== 'undefined' 
-          ? window.location.origin 
+        const baseUrl = typeof window !== 'undefined'
+          ? window.location.origin
           : ''
-        
+
         const response = await fetch(`${baseUrl}/api/categorias?lang=${language}`)
-        
+
         if (response.ok) {
           const categoriasData = await response.json()
           setCategorias(categoriasData)
         } else {
           console.error('Error loading categorias:', response.status)
-          // Em caso de erro, usar categorias iniciais como fallback
-          if (initialCategorias.length > 0) {
-            setCategorias(initialCategorias)
-          }
         }
       } catch (error) {
         console.error('Error loading categorias:', error)
-        // Em caso de erro, usar categorias iniciais como fallback
-        if (initialCategorias.length > 0) {
-          setCategorias(initialCategorias)
-        }
       }
     }
-    
+
     // Buscar categorias sempre que o idioma mudar
     if (language) {
       loadCategorias()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language])
-  
+
   const t = (key) => getTranslation(key, language)
 
   return (
@@ -72,19 +64,19 @@ const Header = ({ categorias: initialCategorias = [] }) => {
           </button>
 
           <div className="social-icons">
-              <a href="#" className="social-link" aria-label="Facebook">
-                <FaFacebookF />
-              </a>
-              <a href="#" className="social-link" aria-label="Twitter">
-                <FaTwitter />
-              </a>
-              <a href="#" className="social-link" aria-label="Instagram">
-                <FaInstagram />
-              </a>
-              <a href="#" className="social-link" aria-label="YouTube">
-                <FaYoutube />
-              </a>
-            </div>
+            <a href="#" className="social-link" aria-label="Facebook">
+              <FaFacebookF />
+            </a>
+            <a href="#" className="social-link" aria-label="Twitter">
+              <FaTwitter />
+            </a>
+            <a href="#" className="social-link" aria-label="Instagram">
+              <FaInstagram />
+            </a>
+            <a href="#" className="social-link" aria-label="YouTube">
+              <FaYoutube />
+            </a>
+          </div>
 
           {/* Navigation (Center) */}
           <nav className={`main-nav ${isMenuOpen ? 'active' : ''}`}>
@@ -97,8 +89,8 @@ const Header = ({ categorias: initialCategorias = [] }) => {
               {categorias.length > 0 ? (
                 categorias.map((categoria) => (
                   <li key={categoria.id} className="nav-item">
-                    <Link 
-                      href={`${getHomeUrl(language)}?categoria=${categoria.slug}`} 
+                    <Link
+                      href={`${getHomeUrl(language)}?categoria=${categoria.slug}`}
                       className="nav-link"
                     >
                       {categoria.nome.toUpperCase()}

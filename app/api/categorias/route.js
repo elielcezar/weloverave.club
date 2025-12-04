@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
 
+// Desabilitar cache para garantir que cada requisição com lang diferente
+// retorne os dados corretos (não cachear por query parameter)
+export const dynamic = 'force-dynamic'
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url)
     const lang = searchParams.get('lang') || 'en'
-    
+
     // Requisição server-to-server (sem CORS)
     const response = await fetch('https://cms.ecwd.cloud/api/categorias', {
       headers: {
@@ -19,7 +23,7 @@ export async function GET(request) {
     }
 
     const data = await response.json()
-    
+
     // Mapear categorias conforme o idioma
     const mappedData = data.map(categoria => {
       const translation = categoria.translations?.find(t => t.idioma === lang) || categoria.translations?.[0]

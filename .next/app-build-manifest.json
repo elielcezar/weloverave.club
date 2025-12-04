@@ -6,17 +6,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/es/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/es/page.css",
-      "static/chunks/app/es/page.js"
-    ],
-    "/[lang]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/[lang]/page.css",
-      "static/chunks/app/[lang]/page.js"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
     "/api/categorias/route": [
       "static/chunks/webpack.js",
@@ -29,11 +23,11 @@
       "static/css/app/pt/page.css",
       "static/chunks/app/pt/page.js"
     ],
-    "/page": [
+    "/es/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
+      "static/css/app/es/page.css",
+      "static/chunks/app/es/page.js"
     ]
   }
 }
