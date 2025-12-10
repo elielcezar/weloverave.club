@@ -3,10 +3,10 @@ import Link from 'next/link'
 import HeroSection from '@/components/Hero/HeroSection'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
+import PostsList from '@/components/PostsList/PostsList'
 import { fetchPosts, fetchCategorias } from '@/services/api'
 import { supportedLanguages, getTranslation, getHomeUrl } from '@/utils/translations'
 import { notFound } from 'next/navigation'
-import { FaClock, FaBookReader } from 'react-icons/fa'
 import '../../../posts/posts.css'
 
 export async function generateMetadata({ params }) {
@@ -79,44 +79,7 @@ export default async function CategoryPage({ params }) {
                             subtitle={`${filteredPosts.length} ${filteredPosts.length === 1 ? 'Post' : 'Posts'}`}
                         />
                         {filteredPosts.length > 0 ? (
-                            <div className="posts-list">
-                                {filteredPosts.map(post => {
-                                    const postSlug = post.slug ? post.slug.replace(/^(pt|en|es)\//, '') : post.id
-                                    return (
-                                        <Link href={`/${lang}/${postSlug}`} key={post.id}>
-                                            <article className="post-list-item">
-                                                <div className="post-list-item__image">
-                                                    <img src={post.image} alt={post.title} />
-                                                    <span className={`post-list-item__category category-tag--${post.categoryColor}`}>
-                                                        {post.category}
-                                                    </span>
-                                                </div>
-                                                <div className="post-list-item__content">
-                                                    <h2 className="post-list-item__title">{post.title}</h2>
-                                                    <div className="post-list-item__meta">
-                                                        <span className="meta-item">
-                                                            <FaClock /> {post.date}
-                                                        </span>
-                                                        {post.readTime && (
-                                                            <span className="meta-item">
-                                                                <FaBookReader /> {post.readTime}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <p className="post-list-item__excerpt">{post.excerpt}</p>
-                                                    {post.tags && post.tags.length > 0 && (
-                                                        <div className="post-list-item__tags">
-                                                            {post.tags.map((tag, index) => (
-                                                                <span key={index} className="tag">{tag}</span>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </article>
-                                        </Link>
-                                    )
-                                })}
-                            </div>
+                            <PostsList posts={filteredPosts} layout="list" lang={lang} />
                         ) : (
                             <div className="no-posts">
                                 <p>{t('common.noPostsCategory')}</p>

@@ -78,13 +78,13 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-light);
   font-weight: 500;
 }
 
 .post-card__meta-item svg {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--primary-color);
 }
 

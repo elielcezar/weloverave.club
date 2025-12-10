@@ -104,6 +104,36 @@
   color: #ffffff;
 }
 
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.social-link {
+  color: #cccccc;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-link:hover {
+  color: var(--primary-color);
+}
+
+/* Desktop Social Icons */
+.social-icons--desktop {
+  display: flex;
+}
+
+/* Mobile Social Icons - Hidden by default */
+.social-icons--mobile {
+  display: none;
+}
+
 /* Actions */
 .header-actions {
   display: flex;
@@ -183,7 +213,7 @@
 @media (max-width: 1024px) {
   .nav-list {
     gap: 20px;
-  }
+  }  
 }
 
 @media (max-width: 768px) {
@@ -244,8 +274,40 @@
     justify-content: space-between;
   }
 
-  .header-actions {
-    margin-left: 0;
+  
+  .header-content .header-actions {
+    margin-left: 0;        
+    position: absolute;
+    width: 50%;
+    right: 5%;
+  }
 
+  /* Hide desktop social icons on mobile */
+  .social-icons--desktop {
+    display: none !important;
+  }
+
+  /* Show mobile social icons at the end of menu */
+  .social-icons--mobile {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 10px;
+    margin-top: 10px;
+    border-top: 1px solid #222;
+  }
+
+  .social-icons--mobile .social-link {
+    font-size: 20px;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .social-icons--mobile {
+    display: none !important;
+  }
+
+  .social-icons--desktop {
+    display: flex !important;
   }
 }

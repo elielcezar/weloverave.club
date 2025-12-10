@@ -1,14 +1,14 @@
 import React from 'react'
-import PostCard from '@/components/PostCard/PostCard'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import SectionTitle from '@/components/SectionTitle/SectionTitle'
+import PostsList from '@/components/PostsList/PostsList'
 import { getTranslation } from '@/utils/translations'
 import './MainContent.css'
 
 const MainContent = ({ posts = [], lang = 'en' }) => {
   const t = (key) => getTranslation(key, lang)
-  // Use the rest for the main list, or all of them if needed
-  const mainPosts = posts;
+  // Pula os 3 primeiros posts que já aparecem no Hero
+  const postsWithoutHero = posts.slice(3)
 
   return (
     <main className="main-content">
@@ -24,16 +24,7 @@ const MainContent = ({ posts = [], lang = 'en' }) => {
             
             <SectionTitle title={t('categories.latest')} />
 
-            <div className="posts-grid">
-              {mainPosts.map(post => (
-                <PostCard key={post.id} post={post} lang={lang} />
-              ))}
-            </div>
-
-            {/* Load More Button */}
-            <div className="load-more-container">
-              <button className="btn-load-more">{t('common.loadMore')}</button>
-            </div>
+            <PostsList posts={postsWithoutHero} layout="grid" lang={lang} />
           </div>
 
           <aside className="sidebar-section">

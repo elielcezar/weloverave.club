@@ -19,12 +19,16 @@
     "noComments": "Seja o primeiro a comentar!",
     "newsletter": {
       "title": "Newsletter",
-      "description": "Receba as últimas notícias sobre música eletrônica direto no seu email.",
+      "description": "Receba as últimas notícias da música eletrônica no seu email",
       "placeholder": "Seu email...",
       "subscribe": "Inscrever-se"
     },
     "search": {
-      "placeholder": "Digite para buscar e pressione Enter..."
+      "placeholder": "Digite para buscar e pressione Enter...",
+      "title": "Busca",
+      "resultsFor": "Resultados para",
+      "noResults": "Nenhum resultado encontrado para sua busca.",
+      "suggestion": "Tente usar palavras-chave diferentes ou mais genéricas."
     },
     "notAvailable": {
       "title": "Conteúdo não disponível",

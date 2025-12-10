@@ -89,6 +89,27 @@ button {
   gap: 40px;
 }
 
+.footer-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 0 20px 0;
+}
+
+.footer-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  border-top: 1px solid var(--primary-color);
+  padding-top: 30px;
+}
+
+
+
 .footer-widget-title {
   font-size: 16px;
   font-weight: 800;
@@ -120,13 +141,16 @@ button {
   letter-spacing: 4px;
   color: #ffffff;
   line-height: 1;
+  max-width: 600px;
+  margin: 0 auto 15px auto;
 }
 
 .footer-text {
   font-size: 14px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 15px 0;
+  margin: 0 auto 15px auto;
+  max-width: 600px;
 }
 
 .footer-text strong {
@@ -267,6 +291,19 @@ button {
 
 .footer-nav a:hover {
   color: var(--primary-color);
+}
+
+
+/* Beehiiv Newsletter Embed */
+.widget-newsletter {
+  background: linear-gradient(135deg, #2c2c2c 0%, #0a0a0a 100%);
+  color: #ffffff;
+}
+
+.beehiiv-embed {
+  width: 100%;
+  max-width: 315px !important;
+  border: none;
 }
 
 /* Responsive */
@@ -522,6 +559,36 @@ button {
   color: #ffffff;
 }
 
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.social-link {
+  color: #cccccc;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-link:hover {
+  color: var(--primary-color);
+}
+
+/* Desktop Social Icons */
+.social-icons--desktop {
+  display: flex;
+}
+
+/* Mobile Social Icons - Hidden by default */
+.social-icons--mobile {
+  display: none;
+}
+
 /* Actions */
 .header-actions {
   display: flex;
@@ -601,7 +668,7 @@ button {
 @media (max-width: 1024px) {
   .nav-list {
     gap: 20px;
-  }
+  }  
 }
 
 @media (max-width: 768px) {
@@ -662,9 +729,41 @@ button {
     justify-content: space-between;
   }
 
-  .header-actions {
-    margin-left: 0;
+  
+  .header-content .header-actions {
+    margin-left: 0;        
+    position: absolute;
+    width: 50%;
+    right: 5%;
+  }
 
+  /* Hide desktop social icons on mobile */
+  .social-icons--desktop {
+    display: none !important;
+  }
+
+  /* Show mobile social icons at the end of menu */
+  .social-icons--mobile {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 10px;
+    margin-top: 10px;
+    border-top: 1px solid #222;
+  }
+
+  .social-icons--mobile .social-link {
+    font-size: 20px;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .social-icons--mobile {
+    display: none !important;
+  }
+
+  .social-icons--desktop {
+    display: flex !important;
   }
 }
 /*!**************************************************************************************************************************************************************************************************************************************************************************!*\
@@ -742,7 +841,7 @@ button {
 
 .social-link:hover {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #f3004d;
 }
 
 .topbar-right {

@@ -1,8 +1,9 @@
 'use client'
 
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
+import { FaFacebookF, FaXTwitter, FaInstagram, FaTiktok } from 'react-icons/fa6'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { FaSearch, FaBars, FaTimes } from 'react-icons/fa'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { getTranslation, getHomeUrl } from '@/utils/translations'
@@ -12,7 +13,9 @@ import './Header.css'
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const [categorias, setCategorias] = useState([])
+  const router = useRouter()
 
   // Get language from context
   const { language } = useLanguage()
@@ -44,6 +47,23 @@ const Header = () => {
 
   const t = (key) => getTranslation(key, language)
 
+  // Handler para submeter a busca
+  const handleSearchSubmit = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      const searchUrl = language === 'en' 
+        ? `/search?q=${encodeURIComponent(searchQuery.trim())}`
+        : `/${language}/search?q=${encodeURIComponent(searchQuery.trim())}`
+      router.push(searchUrl)
+      setIsSearchOpen(false)
+      setSearchQuery('')
+    }
+  }
+
+  // Handler para mudança no input
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value)
+  }
+
   return (
     <header className="header">
       <div className="container-wide">
@@ -57,18 +77,18 @@ const Header = () => {
             {isMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
 
-          <div className="social-icons">
-            <a href="#" className="social-link" aria-label="Facebook">
+          <div className="social-icons social-icons--desktop">
+            <a href="https://www.facebook.com/weloverave.club/" target="_blank" className="social-link" aria-label="Facebook">
               <FaFacebookF />
             </a>
-            <a href="#" className="social-link" aria-label="Twitter">
-              <FaTwitter />
+            <a href="https://x.com/WeLoveRaveClub" target="_blank" className="social-link" aria-label="Twitter">
+              <FaXTwitter />
             </a>
-            <a href="#" className="social-link" aria-label="Instagram">
+            <a href="https://www.instagram.com/weloverave.club/" target="_blank" className="social-link" aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="#" className="social-link" aria-label="YouTube">
-              <FaYoutube />
+            <a href="https://www.tiktok.com/@weloverave.club" target="_blank" className="social-link" aria-label="YouTube">
+              <FaTiktok />
             </a>
           </div>
 
@@ -104,6 +124,22 @@ const Header = () => {
                 </Link>
               </li>
             </ul>
+
+            {/* Social Icons - Mobile Only */}
+            <div className="social-icons social-icons--mobile">
+              <a href="https://www.facebook.com/weloverave.club/" target="_blank" className="social-link" aria-label="Facebook">
+                <FaFacebookF />
+              </a>
+              <a href="https://x.com/WeLoveRaveClub" target="_blank" className="social-link" aria-label="Twitter">
+                <FaXTwitter />
+              </a>
+              <a href="https://www.instagram.com/weloverave.club/" target="_blank" className="social-link" aria-label="Instagram">
+                <FaInstagram />
+              </a>
+              <a href="https://www.tiktok.com/@weloverave.club" target="_blank" className="social-link" aria-label="YouTube">
+                <FaTiktok />
+              </a>
+            </div>
           </nav>
 
           {/* Search & Language (Right) */}
@@ -126,6 +162,10 @@ const Header = () => {
               type="text"
               placeholder={t('common.search.placeholder')}
               className="search-input"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              onKeyDown={handleSearchSubmit}
+              autoFocus
             />
           </div>
         )}

@@ -23,7 +23,7 @@ const TopBar = () => {
           </div>
 
           <div className="topbar-right">
-            <button className="topbar-btn btn-subscribe">SUBSCRIBE</button>           
+            {/*<button className="topbar-btn btn-subscribe">SUBSCRIBE</button>*/}
           </div>
         </div>
       </div>

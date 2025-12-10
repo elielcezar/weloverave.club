@@ -22,6 +22,35 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/categorias/route.js"
+    ],
+    "/[lang]/category/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[lang]/category/[slug]/page.css",
+      "static/chunks/app/[lang]/category/[slug]/page.js"
+    ],
+    "/[lang]/search/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[lang]/search/page.css",
+      "static/chunks/app/[lang]/search/page.js"
+    ],
+    "/search/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/search/page.css",
+      "static/chunks/app/search/page.js"
+    ],
+    "/[lang]/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[lang]/[slug]/page.css",
+      "static/chunks/app/[lang]/[slug]/page.js"
+    ],
+    "/api/translate-slug/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/translate-slug/route.js"
     ]
   }
 }

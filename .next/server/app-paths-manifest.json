@@ -1,4 +1,9 @@
 {
+  "/icon.png/route": "app/icon.png/route.js",
   "/api/categorias/route": "app/api/categorias/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/[lang]/[slug]/page": "app/[lang]/[slug]/page.js",
+  "/[lang]/category/[slug]/page": "app/[lang]/category/[slug]/page.js",
+  "/[lang]/search/page": "app/[lang]/search/page.js",
+  "/[lang]/page": "app/[lang]/page.js"
 }

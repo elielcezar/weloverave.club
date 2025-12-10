@@ -1,0 +1,14 @@
+/* PostsList Component Styles */
+/* Reutiliza estilos de posts-grid e posts-list já definidos em posts.css e MainContent.css */
+
+/* Estilos específicos do botão Load More já existem em MainContent.css */
+/* Apenas garantindo que funcionem em ambos os contextos */
+
+.posts-list + .load-more-container {
+  margin-top: 40px;
+}
+
+.posts-grid + .load-more-container {
+  margin-top: 50px;
+}
+

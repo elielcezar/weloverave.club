@@ -27,6 +27,9 @@
   padding: 4px 12px;
   background-color: rgba(0, 217, 165, 0.1);
   border-radius: 4px;
+
+  display: none;
+
 }
 
 .section-heading {

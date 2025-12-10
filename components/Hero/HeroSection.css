@@ -1,11 +1,12 @@
 .hero-section {
   padding: 0;
-  background-color: #111;
+  background-color: #111;  
 }
 
 .hero-category-title {
-  padding: 80px 0 40px 0;
-  background-color: #111;
+  padding: 60px 0 50px 0;
+  background: #111 url('/bg-hero.jpg') no-repeat center center;
+  background-size: cover;
   text-align: center;
   color: white;
 }
@@ -13,7 +14,7 @@
 .hero-category-heading {
   font-size: 3rem;
   font-weight: 700;
-  color: #00D9A5;
+  color: var(--primary-color);
   margin: 0 0 10px 0;
   text-transform: uppercase;
 }

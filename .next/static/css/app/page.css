@@ -3,12 +3,13 @@
   \*****************************************************************************************************************************************************************************************************************************************************************************/
 .hero-section {
   padding: 0;
-  background-color: #111;
+  background-color: #111;  
 }
 
 .hero-category-title {
-  padding: 80px 0 40px 0;
-  background-color: #111;
+  padding: 60px 0 50px 0;
+  background: #111 url('/bg-hero.jpg') no-repeat center center;
+  background-size: cover;
   text-align: center;
   color: white;
 }
@@ -16,7 +17,7 @@
 .hero-category-heading {
   font-size: 3rem;
   font-weight: 700;
-  color: #00D9A5;
+  color: var(--primary-color);
   margin: 0 0 10px 0;
   text-transform: uppercase;
 }
@@ -180,6 +181,152 @@
     padding: 25px;
   }
 }
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/MainContent/MainContent.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+.main-content {
+  padding: 40px 0 60px;
+  background-color: var(--gray-bg);
+}
+
+/* Small Featured Section */
+.small-featured-section {
+  margin-bottom: 50px;
+}
+
+.small-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.small-featured-card {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.small-featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.small-featured-card__image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.small-featured-card:hover .small-featured-card__image {
+  transform: scale(1.05);
+}
+
+.small-featured-card__content {
+  padding: 20px;
+}
+
+.small-featured-card__title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.small-featured-card:hover .small-featured-card__title {
+  color: var(--primary-color);
+}
+
+.small-featured-card__date {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* Content Layout */
+.content-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  grid-gap: 40px;
+  gap: 40px;  
+}
+
+/* Posts Section */
+.posts-section {
+  min-width: 0;
+}
+
+.posts-grid {
+  display: grid;
+  grid-gap: 30px;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* Load More */
+.load-more-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.btn-load-more {
+  padding: 14px 40px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-load-more:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 217, 165, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .small-featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .content-layout {
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 30px 0 40px;
+  }
+
+  .small-featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .sidebar-section {
+    order: 2;
+  }
+}
+
+
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/PostCard/PostCard.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************************/
@@ -263,13 +410,13 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-light);
   font-weight: 500;
 }
 
 .post-card__meta-item svg {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--primary-color);
 }
 
@@ -307,6 +454,24 @@
 }
 
 
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/PostsList/PostsList.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+/* PostsList Component Styles */
+/* Reutiliza estilos de posts-grid e posts-list já definidos em posts.css e MainContent.css */
+
+/* Estilos específicos do botão Load More já existem em MainContent.css */
+/* Apenas garantindo que funcionem em ambos os contextos */
+
+.posts-list + .load-more-container {
+  margin-top: 40px;
+}
+
+.posts-grid + .load-more-container {
+  margin-top: 50px;
+}
+
+
 /*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/SectionTitle/SectionTitle.css ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************/
@@ -339,6 +504,9 @@
   padding: 4px 12px;
   background-color: rgba(0, 217, 165, 0.1);
   border-radius: 4px;
+
+  display: none;
+
 }
 
 .section-heading {
@@ -348,153 +516,6 @@
   letter-spacing: 1px;
   color: var(--text-dark);
   margin: 0;
-}
-
-
-/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./components/MainContent/MainContent.css ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************/
-.main-content {
-  padding: 40px 0 60px;
-  background-color: var(--gray-bg);
-}
-
-/* Small Featured Section */
-.small-featured-section {
-  margin-bottom: 50px;
-}
-
-.small-featured-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.small-featured-card {
-  background: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.small-featured-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.small-featured-card__image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.small-featured-card:hover .small-featured-card__image {
-  transform: scale(1.05);
-}
-
-.small-featured-card__content {
-  padding: 20px;
-}
-
-.small-featured-card__title {
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.4;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-  transition: color 0.3s ease;
-}
-
-.small-featured-card:hover .small-featured-card__title {
-  color: var(--primary-color);
-}
-
-.small-featured-card__date {
-  font-size: 12px;
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-/* Content Layout */
-.content-layout {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  grid-gap: 40px;
-  gap: 40px;
-  margin-top: 50px;
-}
-
-/* Posts Section */
-.posts-section {
-  min-width: 0;
-}
-
-.posts-grid {
-  display: grid;
-  grid-gap: 30px;
-  gap: 30px;
-  margin-top: 30px;
-}
-
-/* Load More */
-.load-more-container {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.btn-load-more {
-  padding: 14px 40px;
-  background-color: var(--primary-color);
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-.btn-load-more:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 217, 165, 0.3);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .small-featured-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .content-layout {
-    grid-template-columns: 1fr 300px;
-    gap: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-content {
-    padding: 30px 0 40px;
-  }
-
-  .small-featured-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .content-layout {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .sidebar-section {
-    order: 2;
-  }
 }
 
 
@@ -539,6 +560,10 @@
   background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a1a 100%);
   padding: 60px 0;
   margin-bottom: 50px;
+}
+
+.posts-page-layout{
+  padding-top: 40px;
 }
 
 .posts-page-title {
@@ -624,10 +649,10 @@
   z-index: 2;
 }
 
-.category-tag--purple { background-color: var(--purple-tag); }
-.category-tag--pink { background-color: var(--pink-tag); }
-.category-tag--blue { background-color: var(--blue-tag); }
-.category-tag--red { background-color: var(--red-tag); }
+.category-tag--purple { background-color: var(--primary-color); }
+.category-tag--pink { background-color: var(--primary-color); }
+.category-tag--blue { background-color: var(--primary-color); }
+.category-tag--red { background-color: var(--primary-color); }
 
 .post-list-item__content {
   padding: 25px 25px 25px 0;
@@ -660,13 +685,13 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-light);
   font-weight: 500;
 }
 
 .meta-item svg {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--primary-color);
 }
 

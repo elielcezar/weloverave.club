@@ -4,12 +4,13 @@ import Image from 'next/image'
 import { FaUser, FaClock, FaBookReader } from 'react-icons/fa'
 import './PostCard.css'
 
-const PostCard = ({ post, lang = 'en' }) => {
+const PostCard = ({ post, lang = 'en', useRootLinks = false }) => {
   // Extract slug without language prefix
   const slug = post.slug ? post.slug.replace(/^(pt|en|es)\//, '') : post.id
+  const postUrl = useRootLinks ? `/${slug}` : `/${lang}/${slug}`
   
   return (
-    <Link href={`/${lang}/${slug}`}>
+    <Link href={postUrl}>
       <article className="post-card">
         <div className="post-card__image-wrapper">
           <Image 

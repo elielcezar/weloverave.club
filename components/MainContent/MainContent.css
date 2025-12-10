@@ -67,8 +67,7 @@
 .content-layout {
   display: grid;
   grid-template-columns: 1fr 350px;
-  gap: 40px;
-  margin-top: 50px;
+  gap: 40px;  
 }
 
 /* Posts Section */

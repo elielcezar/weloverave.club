@@ -159,7 +159,7 @@ export const fetchPostBySlug = async (slug, lang = 'en') => {
     }
 };
 
-export const fetchRelatedPosts = async (currentPostId, lang = 'en', limit = 3) => {
+export const fetchRelatedPosts = async (currentPostId, lang = 'en', limit = 5) => {
     try {
         const posts = await fetchPosts(lang);
         const currentPost = posts.find(p => p.id === currentPostId);
@@ -173,6 +173,41 @@ export const fetchRelatedPosts = async (currentPostId, lang = 'en', limit = 3) =
         console.error('Error fetching related posts:', error);
         return [];
     }
+};
+
+// Função utilitária para normalizar texto (remover acentos, lowercase)
+const normalizeText = (text) => {
+    if (!text) return '';
+    return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+};
+
+// Função para buscar posts por termo de pesquisa
+export const searchPosts = (posts, query) => {
+    if (!query || query.trim() === '') {
+        return posts;
+    }
+
+    const normalizedQuery = normalizeText(query);
+    const queryWords = normalizedQuery.split(/\s+/).filter(word => word.length > 0);
+
+    return posts.filter(post => {
+        // Campos para buscar
+        const title = normalizeText(post.title);
+        const excerpt = normalizeText(post.excerpt);
+        const content = normalizeText(post.content?.replace(/<[^>]*>/g, '') || ''); // Remove HTML tags
+        const category = normalizeText(post.category);
+        const tags = (post.tags || []).map(tag => normalizeText(tag)).join(' ');
+
+        // Concatenar todos os campos pesquisáveis
+        const searchableText = `${title} ${excerpt} ${content} ${category} ${tags}`;
+
+        // Verificar se todas as palavras da query estão presentes
+        return queryWords.every(word => searchableText.includes(word));
+    });
 };
 
 const mapPost = (apiPost, lang = 'en') => {

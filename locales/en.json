@@ -24,7 +24,11 @@
       "subscribe": "Subscribe"
     },
     "search": {
-      "placeholder": "Type to search and press Enter..."
+      "placeholder": "Type to search and press Enter...",
+      "title": "Search",
+      "resultsFor": "Results for",
+      "noResults": "No results found for your search.",
+      "suggestion": "Try using different or more generic keywords."
     },
     "notAvailable": {
       "title": "Content not available",
